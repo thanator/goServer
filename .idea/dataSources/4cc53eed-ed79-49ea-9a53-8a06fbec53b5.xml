@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="postgres@localhost">
+<dataSource name="MilkDB@localhost">
   <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.7">
     <root id="1"/>
     <database id="2" parent="1" name="postgres">
       <ObjectId>13267</ObjectId>
       <Current>1</Current>
-      <Visible>1</Visible>
     </database>
     <database id="3" parent="1" name="TanDS">
       <ObjectId>16385</ObjectId>
@@ -13,7 +12,12 @@
     <database id="4" parent="1" name="temp">
       <ObjectId>16386</ObjectId>
     </database>
-    <role id="5" parent="1" name="TanDS">
+    <database id="5" parent="1" name="MilkDB">
+      <ObjectId>16398</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <role id="6" parent="1" name="TanDS">
       <ObjectId>16384</ObjectId>
       <SuperRole>1</SuperRole>
       <Inherit>1</Inherit>
@@ -22,32 +26,32 @@
       <CanLogin>1</CanLogin>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="6" parent="1" name="pg_monitor">
+    <role id="7" parent="1" name="pg_monitor">
       <ObjectId>3373</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="7" parent="1" name="pg_read_all_settings">
+    <role id="8" parent="1" name="pg_read_all_settings">
       <ObjectId>3374</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="8" parent="1" name="pg_read_all_stats">
+    <role id="9" parent="1" name="pg_read_all_stats">
       <ObjectId>3375</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="9" parent="1" name="pg_signal_backend">
+    <role id="10" parent="1" name="pg_signal_backend">
       <ObjectId>4200</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="10" parent="1" name="pg_stat_scan_tables">
+    <role id="11" parent="1" name="pg_stat_scan_tables">
       <ObjectId>3377</ObjectId>
       <Inherit>1</Inherit>
       <ConnectionLimit>-1</ConnectionLimit>
     </role>
-    <role id="11" parent="1" name="postgres">
+    <role id="12" parent="1" name="postgres">
       <ObjectId>10</ObjectId>
       <SuperRole>1</SuperRole>
       <Inherit>1</Inherit>
@@ -58,25 +62,23 @@
       <ConnectionLimit>-1</ConnectionLimit>
       <BypassRls>1</BypassRls>
     </role>
-    <schema id="12" parent="2" name="public">
+    <schema id="13" parent="5" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2017-12-26.16:19:09.996</IntrospectionTimestamp>
       <Current>1</Current>
-      <Visible>1</Visible>
     </schema>
-    <schema id="13" parent="2" name="pg_catalog">
+    <schema id="14" parent="5" name="pg_catalog">
       <ObjectId>11</ObjectId>
     </schema>
-    <schema id="14" parent="2" name="pg_toast">
+    <schema id="15" parent="5" name="pg_toast">
       <ObjectId>99</ObjectId>
     </schema>
-    <schema id="15" parent="2" name="pg_temp_1">
+    <schema id="16" parent="5" name="pg_temp_1">
       <ObjectId>11736</ObjectId>
     </schema>
-    <schema id="16" parent="2" name="pg_toast_temp_1">
+    <schema id="17" parent="5" name="pg_toast_temp_1">
       <ObjectId>11737</ObjectId>
     </schema>
-    <schema id="17" parent="2" name="information_schema">
+    <schema id="18" parent="5" name="information_schema">
       <ObjectId>12976</ObjectId>
     </schema>
   </database-model>
