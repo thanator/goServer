@@ -6,7 +6,7 @@ import (
 	_ "github.com/lib/pq"
 	"net/http"
 	"log"
-	_"./db"
+	_ "./db"
 	"./model"
 )
 
@@ -24,13 +24,15 @@ func main() {
 
 func foo(w http.ResponseWriter, r *http.Request) {
 
+	//todo CASES
 	switch r.RequestURI {
 	case "/hi":
 		w.Write([]byte("OK"))
+	case "/manager":
+		model.GetWaitingOrder()
+	case "/manager/accept":
+		model.AcceptOrder()
 	case "/delete":
-
-	//todo CASES
-	model.Zakazat()
 
 	case "/database":
 

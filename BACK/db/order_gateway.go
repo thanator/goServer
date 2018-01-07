@@ -6,13 +6,16 @@ import (
 )
 
 func CreateOrder(productId int, orderVolume int, date time.Time, customerId int) {
-	//TODO прописывать ручками тип ордера - покупка
+	//TODO прописывать ручками тип (покупка-продажа) ордера - покупка + статус - inProgress
 }
 
 func ReadOrder(orderId int) (*sql.Rows, error) {
-	return nil, nil;
+	return nil, nil
 }
 
-func DeleteOrder(orderId int) {
+func ReadorderWithParam(status int) (*sql.Rows, error) {
+	return nil, nil
+}
 
+func UpdateOrder(orderId int, status int) {
 }

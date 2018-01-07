@@ -9,3 +9,7 @@ func ReadProductById(productId int) (*sql.Rows, error) {
 func ReadProductByParams(typeOfMilc string, fatMilk int, proizvMilk string) (int) {
 	return 0
 }
+
+func UpdateProduct(id int) {
+
+}
