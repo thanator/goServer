@@ -6,7 +6,8 @@ import (
 	_ "github.com/lib/pq"
 	"net/http"
 	"log"
-	"./db"
+	_"./db"
+	"./model"
 )
 
 const (
@@ -28,7 +29,8 @@ func foo(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("OK"))
 	case "/delete":
 
-	db.DeleteFromStore()
+	//todo CASES
+	model.Zakazat()
 
 	case "/database":
 

@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BACK/BACK.iml" filepath="$PROJECT_DIR$/BACK/BACK.iml" />
-      <module fileurl="file://$PROJECT_DIR$/UI/UI.iml" filepath="$PROJECT_DIR$/UI/UI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FRONT/FRONT.iml" filepath="$PROJECT_DIR$/FRONT/FRONT.iml" />
       <module fileurl="file://$PROJECT_DIR$/goProjectSecond.iml" filepath="$PROJECT_DIR$/goProjectSecond.iml" />
     </modules>
   </component>
