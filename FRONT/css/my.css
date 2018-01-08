@@ -16,3 +16,25 @@ body::before {
     filter: blur(5px);
     box-shadow: 0 0 0 1em #beacb5;
 }
+
+#cont_for_order {
+    background-color: rgba(133, 127, 122, 0.48);
+    margin-right: 20vw;
+    margin-left: 20vw;
+    padding: 1%;
+    border: #585451;
+    box-shadow: 0 0 10px black;
+    border-radius: 15px;
+}
+
+.cont_my {
+    margin: 20px;
+    padding-left: 8vw;
+    padding-right: 8vw;
+}
+
+.select_my {
+    width: 100%;
+    height: 36px;
+    font-size: 16px;
+}
