@@ -1,4 +1,4 @@
-package BACK
+package main
 
 import (
 	"database/sql"
@@ -8,12 +8,7 @@ import (
 	"log"
 	_ "./db"
 	"./model"
-)
-
-const (
-	DB_USER     = "TanDS"
-	DB_PASSWORD = "6364"
-	DB_NAME     = "MilkDB"
+	"./consts"
 )
 
 func main() {
@@ -23,6 +18,7 @@ func main() {
 }
 
 func foo(w http.ResponseWriter, r *http.Request) {
+	var err string
 
 	//todo CASES
 	switch r.RequestURI {
@@ -31,12 +27,15 @@ func foo(w http.ResponseWriter, r *http.Request) {
 	case "/manager":
 		model.GetWaitingOrder()
 	case "/manager/accept":
-		model.AcceptOrder()
-	case "/delete":
-
+		//model.AcceptOrder()
+	case "/making_order/create":
+		 err = model.MakeOrder("Молоко", 1, 2.5, "20171201", "Домик в деревне", "+78005553535")
+		 if err != "succ" {
+			w.Write([]byte(err))
+		}
 	case "/database":
 
-		dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME)
+		dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", consts.DB_USER, consts.DB_PASSWORD, consts.DB_NAME)
 		dbase, err := sql.Open("postgres", dbinfo)
 
 		if err != nil {

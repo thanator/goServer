@@ -31,7 +31,7 @@ func GetWaitingOrder() (string) {
 	return ""
 }
 
-func SelectById(id int) (string) {
+/*func SelectById(id int) (string) {
 	someShit, err := db.ReadOrder(id)
 	if err != nil {
 		return err.Error()
@@ -39,7 +39,7 @@ func SelectById(id int) (string) {
 
 		return "some string"
 	}
-}
+}*/
 
 func DeclineOrder(id int) {
 	db.UpdateOrder(id, consts.ORDER_DECLINED)

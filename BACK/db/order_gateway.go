@@ -1,11 +1,10 @@
 package db
 
 import (
-	"time"
 	"database/sql"
 )
 
-func CreateOrder(productId int, orderVolume int, date time.Time, customerId int) {
+func CreateOrder(productId int, orderVolume int, date string, customerId int) {
 	//TODO прописывать ручками тип (покупка-продажа) ордера - покупка + статус - inProgress
 }
 

@@ -1,7 +1,6 @@
 package model
 
 import (
-	"time"
 	"../db"
 )
 
@@ -10,9 +9,15 @@ func SeeAll() {
 
 }*/
 
-func MakeOrder(typeOfMilc string, milkVolume int, fatMilk int, deliveryDate time.Time, proizvMilk string, phoneNumber string) {
-	var idOfMilk = db.ReadProductByParams(typeOfMilc, fatMilk, proizvMilk)
+func MakeOrder(typeOfMilc string, milkVolume int, fatMilk float64, deliveryDate string, proizvMilk string, phoneNumber string) (string) {
+
+	var idOfMilk, err = db.ReadProductByParams(typeOfMilc, fatMilk, proizvMilk)
+	if err!=nil {
+		return err.Error()
+	}
 	var idOfCustomer = db.ReadCustomerByPhone(phoneNumber)
 
 	db.CreateOrder(idOfMilk, milkVolume, deliveryDate, idOfCustomer)
+
+	return ""
 }
