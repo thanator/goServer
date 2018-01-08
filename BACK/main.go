@@ -29,7 +29,7 @@ func foo(w http.ResponseWriter, r *http.Request) {
 	case "/manager/accept":
 		//model.AcceptOrder()
 	case "/making_order/create":
-		 err = model.MakeOrder("Молоко", 1, 2.5, "20171201", "Домик в деревне", "+78005553535")
+		 err = model.MakeOrder("Молоко", 1, 2.5, "20171201", "Домик в деревне", "+780053535")
 		 if err != "succ" {
 			w.Write([]byte(err))
 		}

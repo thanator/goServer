@@ -11,13 +11,24 @@ func SeeAll() {
 
 func MakeOrder(typeOfMilc string, milkVolume int, fatMilk float64, deliveryDate string, proizvMilk string, phoneNumber string) (string) {
 
-	var idOfMilk, err = db.ReadProductByParams(typeOfMilc, fatMilk, proizvMilk)
-	if err!=nil {
+	idOfMilk, err := db.ReadProductByParams(typeOfMilc, fatMilk, proizvMilk)
+	if err != nil {
 		return err.Error()
 	}
-	var idOfCustomer = db.ReadCustomerByPhone(phoneNumber)
+	idOfCustomer, err := db.ReadCustomerByPhone(phoneNumber)
+	if err != nil {
+		return err.Error()
+	} else if idOfCustomer == -1 {
+		idOfCustomer, err = db.CreateCustomer(phoneNumber)
+		if err != nil {
+			return err.Error()
+		}
+	}
 
-	db.CreateOrder(idOfMilk, milkVolume, deliveryDate, idOfCustomer)
+	err = db.CreateOrder(idOfMilk, milkVolume, deliveryDate, idOfCustomer)
+	if err != nil {
+		return err.Error()
+	}
 
-	return ""
+	return "succ"
 }

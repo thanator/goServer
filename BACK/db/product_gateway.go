@@ -2,9 +2,6 @@ package db
 
 import (
 	"database/sql"
-	"../consts"
-	"fmt"
-	"log"
 	"strconv"
 )
 
@@ -14,7 +11,7 @@ func ReadProductById(productId int) (*sql.Rows, error) {
 
 func ReadProductByParams(typeOfMilc string, fatMilk float64, proizvMilk string) (int, error) {
 
-	dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", consts.DB_USER, consts.DB_PASSWORD, consts.DB_NAME)
+	/*dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", consts.DB_USER, consts.DB_PASSWORD, consts.DB_NAME)
 	dbase, err := sql.Open("postgres", dbinfo)
 
 	if err != nil {
@@ -28,12 +25,12 @@ func ReadProductByParams(typeOfMilc string, fatMilk float64, proizvMilk string) 
 	} else {
 
 	}
-
+*/
 	stringin := strconv.FormatFloat(fatMilk, 'f', 1, 64)
 
 	var str = "SELECT id FROM public.\"Product\" WHERE milktype = '" + typeOfMilc + "' AND fatness = " + stringin + " AND creator = '" + proizvMilk + "'"
 
-	rows, err := dbase.Query(str)
+	rows, err := CreateConnection(str)
 
 	if err != nil {
 		return -1, err
@@ -43,21 +40,21 @@ func ReadProductByParams(typeOfMilc string, fatMilk float64, proizvMilk string) 
 			var i string
 			err := rows.Scan(&i)
 			if err != nil {
+				rows.Close()
 				return -1, err
-				log.Fatal(err)
 			} else {
 				int2, err := strconv.Atoi(i)
 				if err != nil {
+					rows.Close()
 					return -1, err
 				} else {
+					rows.Close()
 					return int2, nil
 				}
 			}
 		}
 		rows.Close()
 	}
-
-	defer dbase.Close()
 
 	return 0, nil
 }
