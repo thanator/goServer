@@ -1,0 +1,22 @@
+{
+  "name": "FRONT",
+  "homepage": "https://github.com/thanator/goServer",
+  "authors": [
+    "Иван Водолазский <Vodolazskiy.I.A@sberbank.ru>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "jquery": "3.2.1"
+  }
+}
