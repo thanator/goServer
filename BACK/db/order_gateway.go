@@ -8,7 +8,6 @@ import (
 )
 
 func CreateOrder(productId int, orderVolume int, date string, customerId int) (error) {
-	//TODO прописывать ручками тип (покупка-продажа) ордера - покупка + статус - inProgress
 
 	someDate1, someDate2, someDate3 := time.Now().Date()
 
