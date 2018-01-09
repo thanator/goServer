@@ -3,8 +3,15 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="css/my.css" rel="stylesheet">
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="src/css/my.css" rel="stylesheet">
+    <link href="src/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="src/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="src/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="src/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="src/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="src/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <meta charset="UTF-8">
     <title>Zakaz</title>
@@ -37,9 +44,27 @@
     </div>
     <div class="cont_my">
         <h4>Дата поставки</h4>
-        <input class="date" data-inputmask="'alias': 'date'">
-
-        </input>
+        <div class="container">
+            <div class="row">
+                <div class='col-sm-12' style="padding: 0;">
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control" style="font-size: 16px" />
+                            <span class="input-group-addon" style="width: 30px">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(function () {
+                        $('#datetimepicker1').datetimepicker({
+                            format:'DD/MM/YYYY'
+                        });
+                    });
+                </script>
+            </div>
+        </div>
     </div>
     <div class="cont_my">
         <h4>Производитель</h4>
@@ -84,12 +109,6 @@
         </button>
     </a>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"/>
-<script>
-    $(":input").inputmask();
-
-    $("#phone").inputmask({"mask": "(999) 999-9999"});
-</script>
 </body>
 </html>
 
