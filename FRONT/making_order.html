@@ -22,7 +22,7 @@
     <h2>Make your order, BITCH!</h2>
 </div>
 <div id="cont_for_order" class="z-depth-5">
-    <form action="/make_order" method="post">
+    <form action="/" method="POST">
     <div class="cont_my">
         <h4>Тип товара</h4>
         <select class="selectpicker select_my">
@@ -33,7 +33,7 @@
     </div>
     <div class="cont_my">
         <h4>Объём</h4>
-        volume: <input type="text" class="form-control">
+        <input name="volume" type="text" class="form-control">
     </div>
     <div class="cont_my">
         <h4>Жирность</h4>
@@ -50,7 +50,7 @@
                 <div class='col-sm-12' style="padding: 0;">
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" style="font-size: 16px" />
+                            <input name type='text' class="form-control" style="font-size: 16px" />
                             <span class="input-group-addon" style="width: 30px">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -82,12 +82,13 @@
 
     <div class="form-group">
         <div class="d-flex justify-content-center">
-            <a href="making_order.html" style="text-decoration: none; outline: none">
+            <input type="submit" name="submit">
+            <!--<a href="making_order.html" style="text-decoration: none; outline: none">
                 <button id="singlebutton" name="singlebutton" class="btn btn-success"
                         style="height: 50px; border-radius: 16px; font-size: 15px">
                     Оформить заказ!
                 </button>
-            </a>
+            </a>-->
         </div>
     </div>
     </form>
