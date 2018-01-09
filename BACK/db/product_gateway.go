@@ -5,11 +5,23 @@ import (
 	"strconv"
 )
 
+func CreateProduct(typeOfMilc string, fatMilk string, proizvMilk string) (int, error) {
+
+	var str = "INSERT INTO public.\"Product\" (id, milktype, fatness, creator) VALUES (nextval('\"Product_id_seq\"'::regclass), '" + typeOfMilc + "', " + fatMilk + ", '" + proizvMilk + "')"
+
+	_, err := CreateConnection(str)
+	if err != nil {
+		return -1, err
+	}
+
+	return ReadProductByParams(typeOfMilc, fatMilk, proizvMilk)
+}
+
 func ReadProductById(productId int) (*sql.Rows, error) {
 	return nil, nil
 }
 
-func ReadProductByParams(typeOfMilc string, fatMilk float64, proizvMilk string) (int, error) {
+func ReadProductByParams(typeOfMilc string, fatMilk string, proizvMilk string) (int, error) {
 
 	/*dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", consts.DB_USER, consts.DB_PASSWORD, consts.DB_NAME)
 	dbase, err := sql.Open("postgres", dbinfo)
@@ -26,9 +38,9 @@ func ReadProductByParams(typeOfMilc string, fatMilk float64, proizvMilk string) 
 
 	}
 */
-	stringin := strconv.FormatFloat(fatMilk, 'f', 1, 64)
+	//stringin := strconv.FormatFloat(fatMilk, 'f', 1, 64)
 
-	var str = "SELECT id FROM public.\"Product\" WHERE milktype = '" + typeOfMilc + "' AND fatness = " + stringin + " AND creator = '" + proizvMilk + "'"
+	var str = "SELECT id FROM public.\"Product\" WHERE milktype = '" + typeOfMilc + "' AND fatness = " + fatMilk + " AND creator = '" + proizvMilk + "'"
 
 	rows, err := CreateConnection(str)
 
@@ -56,7 +68,7 @@ func ReadProductByParams(typeOfMilc string, fatMilk float64, proizvMilk string) 
 		rows.Close()
 	}
 
-	return 0, nil
+	return -1, nil
 }
 
 func UpdateProduct(id int) {

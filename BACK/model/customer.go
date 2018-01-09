@@ -9,12 +9,18 @@ func SeeAll() {
 
 }*/
 
-func MakeOrder(typeOfMilc string, milkVolume int, fatMilk float64, deliveryDate string, proizvMilk string, phoneNumber string) (string) {
+func MakeOrder(typeOfMilc string, milkVolume int, fatMilk string, deliveryDate string, proizvMilk string, phoneNumber string) (string) {
 
 	idOfMilk, err := db.ReadProductByParams(typeOfMilc, fatMilk, proizvMilk)
 	if err != nil {
 		return err.Error()
+	} else if idOfMilk == -1 {
+		idOfMilk, err = db.CreateProduct(typeOfMilc, fatMilk, proizvMilk)
+		if err != nil {
+			return err.Error()
+		}
 	}
+
 	idOfCustomer, err := db.ReadCustomerByPhone(phoneNumber)
 	if err != nil {
 		return err.Error()

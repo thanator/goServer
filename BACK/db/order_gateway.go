@@ -27,8 +27,33 @@ func ReadOrder(orderId int) (*sql.Rows, error) {
 	return nil, nil
 }
 
-func ReadorderWithParam(status int) (*sql.Rows, error) {
-	return nil, nil
+func ReadorderWithParam(status int) ([]int, error) {
+	var masInt []int
+
+	str := "SELECT id FROM public.\"Order\" WHERE order_status = " + strconv.Itoa(consts.ORDER_WAITING)
+
+	rows, err := CreateConnection(str)
+	if err!= nil {
+		return []int{-1, -1}, err
+	} else {
+
+		for rows.Next() {
+			var tempInt int
+			err := rows.Scan(&tempInt)
+			if err != nil {
+				return []int{-1, -1}, err
+			} else {
+				masInt = append(masInt, tempInt)
+			}
+		}
+		if len(masInt) > 0 {
+			return masInt, nil
+		}
+		rows.Close()
+	}
+
+	return []int{-1, -1}, nil
+
 }
 
 func UpdateOrder(orderId int, status int) {

@@ -1,14 +1,13 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	_ "github.com/lib/pq"
 	"net/http"
-	"log"
 	_ "./db"
 	"./model"
-	"./consts"
+	"strconv"
+	"strings"
 )
 
 func main() {
@@ -17,6 +16,7 @@ func main() {
 	http.ListenAndServe(":3000", nil)
 
 }
+/*
 
 func foo(w http.ResponseWriter, r *http.Request) {
 	var err string
@@ -43,8 +43,8 @@ func foo(w http.ResponseWriter, r *http.Request) {
 	case "/manager/accept":
 		//model.AcceptOrder()
 	case "/making_order/create":
-		 err = model.MakeOrder("Молоко", 1, 2.5, "20171201", "Домик в деревне", "+780053535")
-		 if err != "succ" {
+		//err = model.MakeOrder("Молоко", 1, "2.5, "20171201", "Домик в деревне", "+780053535")
+		if err != "succ" {
 			w.Write([]byte(err))
 		}
 	case "/database":
@@ -92,47 +92,76 @@ func foo(w http.ResponseWriter, r *http.Request) {
 	}
 
 }
+*/
 
 func createOrder(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
 	case "/making_order.html":
 		fmt.Printf("/ making order\n")
-	case "/making_order":
-		fmt.Printf("making_order\n")
-	}
-	//if r.URL.Path != "/" {
-	//	fmt.Printf(r.URL.Path)
-	//	fmt.Fprintf(w, "kekeke\n")
-    //    http.Error(w, "404 not found.", http.StatusNotFound)
-    //    return
-    //}
- 	fmt.Printf("not error\n")
-    switch r.Method {
-    case "GET":
-    	var str string
-    	if r.URL.Path == "/" {
-    		str = "../FRONT/index.html"
-    	} else {
-    		fmt.Printf("Getted\n")
-    		str = "../FRONT/" + r.URL.Path
-    	}
-    	fmt.Printf(str)
-        http.ServeFile(w, r, str)
+	case "/hi":
+		w.Write([]byte("OK"))
+		return
+	case "/manager_req":
+		tempMas := model.GetWaitingOrder()
+		if tempMas[0] != -1 {
+			w.Write([]byte(strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tempMas)), ","), "[]")))
+			return
+		} else {
+			w.Write([]byte("ERROR"))
+			return
+		}
 
-    case "POST":
-    	fmt.Printf("posted\n")
-        // Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
-        if err := r.ParseForm(); err != nil {
-            fmt.Printf("ParseForm() err: %v", err)
-            return
-        }
-        fmt.Printf("Post from website! r.PostFrom = %v\n", r.PostForm)
-        volume := r.FormValue("volume")
-        //address := r.FormValue("address")
-        fmt.Printf("Volume = %s\n", volume)
-        http.Redirect(w, r, "/", http.StatusSeeOther)
-        //fmt.Fprintf(w, "Address = %s\n", address)
-    default:
-        fmt.Printf("Sorry, only GET and POST methods are supported.")
-    }
+	}
+	/*if r.URL.Path != "/" {
+		fmt.Printf(r.URL.Path)
+		fmt.Fprintf(w, "kekeke\n")
+        http.Error(w, "404 not found.", http.StatusNotFound)
+        return
+    }*/
+	fmt.Printf("not error\n")
+	switch r.Method {
+	case "GET":
+		var str string
+		if r.URL.Path == "/" {
+			str = "./FRONT/index.html"
+		} else {
+			fmt.Printf("Getted\n")
+			str = "./FRONT/" + r.URL.Path
+		}
+		fmt.Printf(str)
+		http.ServeFile(w, r, str)
+
+	case "POST":
+		fmt.Printf("posted\n")
+		// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
+		if err := r.ParseForm(); err != nil {
+			fmt.Printf("ParseForm() err: %v", err)
+			return
+		}
+		fmt.Printf("Post from website! r.PostFrom = %v\n", r.PostForm)
+		milktype := r.FormValue("type")
+		volume := r.FormValue("volume")
+		fatness := r.FormValue("fatness")
+		delivery := r.FormValue("delivery")
+		creator := r.FormValue("creator")
+		custphone := r.FormValue("phone")
+
+		//address := r.FormValue("address")
+		fmt.Printf("milktype = %s\n", milktype)
+		fmt.Printf("Volume = %s\n", volume)
+		fmt.Printf("fatness = %s\n", fatness)
+		fmt.Printf("delivery = %s\n", delivery)
+		fmt.Printf("creator = %s\n", creator)
+		fmt.Printf("custphone = %s\n", custphone)
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+
+		words := strings.Fields(fatness)
+		tempInt, _ := strconv.Atoi(volume)
+		stir := model.MakeOrder(milktype, tempInt, words[0], delivery, creator, custphone)
+
+		fmt.Printf("Final: " + stir)
+
+	default:
+		fmt.Printf("Sorry, only GET and POST methods are supported.")
+	}
 }

@@ -24,14 +24,14 @@
     <div class="cont_my" style="text-align: center">
         <h4>Номер заказа</h4>
         <div style="horiz-align: center">
-            <select class="selectpicker select_my" name="Выбор заказа"
+            <button id="manager_req" name="singlebutton" class="btn btn-success"
+                    style="display: inline-block; width: 36px; margin-right: 10px"> <span class="glyphicon">&#xe031;</span>
+            </button>
+            <select id="dropdown" class="selectpicker select_my" name="Выбор заказа"
                     style="display: inline-block; margin-right: 10px; align: right; width: 70%">
-                <option>Заказ 1</option>
-                <option>Заказ 2</option>
-                <option>Заказ 3</option>
             </select>
-            <button id="singlebutton" name="singlebutton" class="btn btn-success"
-                    style="display: inline-block; width: 36px">OK
+            <button id="singlebutton" name="singlebutton" class="btn btn-info"
+                    style="display: inline-block; width: 36px"><span class="glyphicon">&#xe003;</span>
             </button>
         </div>
     </div>
@@ -72,7 +72,7 @@
 
 <div class="align-right" style="position: absolute; bottom: 0; right: 0">
     <div class="btn-group">
-        <a id="manager_req" href="manager.html" style="text-decoration: none; outline: none">
+        <a href="manager.html" style="text-decoration: none; outline: none">
             <button type="button" class="btn btn-info" style="width: 10vw; border-top-left-radius: 8px">Манагер</button>
         </a>
         <a href="boss.html" style="text-decoration: none; outline: none">

@@ -1,21 +1,10 @@
 $(document).ready(function () {
     $("#first_button").click(function () {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:63342/hi", success: function (result) {
-                alert(result)
-            }
-        });
-    });
-
-    $("#go_to_order").click(function () {
-        $.ajax({
-            type: 'GET',
-            crossdomain: true,
-            dataType: 'text',
-            url: "http://localhost:63342/hi", success: function (result) {
+            url: "http://localhost:3000/hi", success: function (result) {
                 alert(result)
             }
         });
@@ -23,10 +12,10 @@ $(document).ready(function () {
 
     $("#accept_manager").click(function () {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:63342/hi", success: function (result) {
+            url: "http://localhost:3000/hi", success: function (result) {
                 alert(result)
             }
         });
@@ -34,10 +23,10 @@ $(document).ready(function () {
 
     $("#deny_manager").click(function () {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:63342/hi", success: function (result) {
+            url: "http://localhost:3000/hi", success: function (result) {
                 alert(result)
             }
         });
@@ -45,21 +34,22 @@ $(document).ready(function () {
 
     $("#see_all_stock_boss").click(function () {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:63342/hi", success: function (result) {
+            url: "http://localhost:3000/hi", success: function (result) {
                 $("#text_area_boss").html(result + " 1")
+
             }
         });
     });
 
     $("#see_all_archive_boss").click(function () {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:63342/hi", success: function (result) {
+            url: "http://localhost:3000/hi", success: function (result) {
                 $("#text_area_boss").html(result + " 2")
             }
         });
@@ -67,11 +57,15 @@ $(document).ready(function () {
 
     $("#manager_req").click(function () {
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:63342/hi", success: function (result) {
-                alert(result)
+            url: "http://localhost:3000/manager_req", success: function (result) {
+                $("#dropdown").find('option').remove();
+                var arr = result.split(",")
+                for(i = 0; i < arr.length; i++) {
+                    $("#dropdown").append('<option value="' + arr[i] + '">' + arr[i] + '</option>>')
+                }
             }
         });
     });

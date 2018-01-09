@@ -26,11 +26,6 @@ func Login(name string, password string) (string) {
 
 // start of region Методы манагера
 
-func GetWaitingOrder() (string) {
-	db.ReadorderWithParam(consts.ORDER_WAITING)
-	return ""
-}
-
 /*func SelectById(id int) (string) {
 	someShit, err := db.ReadOrder(id)
 	if err != nil {
@@ -40,6 +35,14 @@ func GetWaitingOrder() (string) {
 		return "some string"
 	}
 }*/
+
+func GetWaitingOrder() ([]int) {
+	 masInt, err := db.ReadorderWithParam(consts.ORDER_WAITING)
+	 if len(masInt) > 0 && err == nil {
+	 	return masInt
+	 }
+	 return []int{-1}
+}
 
 func DeclineOrder(id int) {
 	db.UpdateOrder(id, consts.ORDER_DECLINED)
