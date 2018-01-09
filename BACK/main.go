@@ -13,7 +13,7 @@ import (
 
 func main() {
 	http.HandleFunc("/", foo)
-	http.ListenAndServe(":3000", nil)
+	http.ListenAndServe(":63342", nil)
 
 }
 

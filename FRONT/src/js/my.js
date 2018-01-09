@@ -4,7 +4,7 @@ $(document).ready(function () {
             type: 'GET',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/hi", success: function (result) {
+            url: "http://localhost:63342/hi", success: function (result) {
                 alert(result)
             }
         });
@@ -15,7 +15,7 @@ $(document).ready(function () {
             type: 'GET',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/hi", success: function (result) {
+            url: "http://localhost:63342/hi", success: function (result) {
                 alert(result)
             }
         });
@@ -26,7 +26,7 @@ $(document).ready(function () {
             type: 'GET',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/hi", success: function (result) {
+            url: "http://localhost:63342/hi", success: function (result) {
                 alert(result)
             }
         });
@@ -37,7 +37,7 @@ $(document).ready(function () {
             type: 'GET',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/hi", success: function (result) {
+            url: "http://localhost:63342/hi", success: function (result) {
                 alert(result)
             }
         });
@@ -48,7 +48,7 @@ $(document).ready(function () {
             type: 'GET',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/hi", success: function (result) {
+            url: "http://localhost:63342/hi", success: function (result) {
                 $("#text_area_boss").html(result + " 1")
             }
         });
@@ -59,7 +59,7 @@ $(document).ready(function () {
             type: 'GET',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/hi", success: function (result) {
+            url: "http://localhost:63342/hi", success: function (result) {
                 $("#text_area_boss").html(result + " 2")
             }
         });
@@ -70,7 +70,7 @@ $(document).ready(function () {
             type: 'GET',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/hi", success: function (result) {
+            url: "http://localhost:63342/hi", success: function (result) {
                 alert(result)
             }
         });
