@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="src/css/my.css" rel="stylesheet">
     <link href="src/css/bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="src/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="src/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="src/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="src/js/my.js" type="text/javascript"></script>
+
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <meta charset="UTF-8">
     <title>Boss</title>
@@ -25,7 +30,7 @@
             <button name="singlebutton" class="btn btn-success"
                     style="display: inline-block; margin-left: 12px; font-size: 16px">Найти
             </button>
-            <button name="singlebutton" class="btn btn-success"
+            <button id="see_all_stock_boss" name="singlebutton" class="btn btn-success"
                     style="display: inline-block; width: 120px; height: 60px ;margin-left: 12px; white-space: normal; font-size: 16px">
                 Посмотреть весь склад
             </button>
@@ -39,7 +44,7 @@
             <button name="singlebutton" class="btn btn-success"
                     style="display: inline-block; margin-left: 12px; font-size: 16px">Найти
             </button>
-            <button name="singlebutton" class="btn btn-success"
+            <button id="see_all_archive_boss" name="singlebutton" class="btn btn-success"
                     style="display: inline-block; width: 120px; height: 60px ;margin-left: 12px; white-space: normal; font-size: 16px">
                 Посмотреть весь архив
             </button>
@@ -48,7 +53,7 @@
 
     <div class="cont_my">
         <h4 style="text-align: center">Итог поиска</h4>
-        <textarea readonly style="height: 300px; width: 80%; margin-right: 10%; margin-left: 10%; font-size: 16px">
+        <textarea id="text_area_boss" readonly style="height: 300px; width: 80%; margin-right: 10%; margin-left: 10%; font-size: 16px">
                 Some text will be here
             </textarea>
     </div>
@@ -57,7 +62,7 @@
 
 <div class="align-right" style="position: absolute; bottom: 0; right: 0">
     <div class="btn-group">
-        <a href="manager.html" style="text-decoration: none; outline: none">
+        <a id="manager_req" href="manager.html" style="text-decoration: none; outline: none">
             <button type="button" class="btn btn-info" style="width: 10vw; border-top-left-radius: 8px">Манагер</button>
         </a>
         <a href="boss.html" style="text-decoration: none; outline: none">

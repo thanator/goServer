@@ -13,7 +13,6 @@ import (
 
 func main() {
 	http.HandleFunc("/", foo)
-	http.HandleFunc("/make_order", createOrder)
 	http.ListenAndServe(":3000", nil)
 
 }
@@ -21,10 +20,23 @@ func main() {
 func foo(w http.ResponseWriter, r *http.Request) {
 	var err string
 
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	//todo CASES
 	switch r.RequestURI {
 	case "/hi":
 		w.Write([]byte("OK"))
+	case "/goProjectSecond/FRONT/making_order.html":
+		switch r.Method {
+		case "POST":
+			if err := r.ParseForm(); err != nil {
+
+			}
+			volume := r.FormValue("volume")
+			fmt.Fprintf(w, "Volume = %s\n", volume)
+			log.Println(volume)
+		}
 	case "/manager":
 		model.GetWaitingOrder()
 	case "/manager/accept":
