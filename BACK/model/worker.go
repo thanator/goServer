@@ -5,24 +5,6 @@ import (
 	"../consts"
 )
 
-func Login(name string, password string) (string) {
-	var tempPass string
-	tempPass = db.ReadWokerPassword(name)
-
-	//TODO add URL-s
-	if password == tempPass {
-		switch name {
-		case "manager":
-			return "URL1"
-		case "boss":
-			return "URL2"
-		default:
-			return ""
-		}
-	}
-	return ""
-}
-
 // start of region Методы манагера
 
 func SelectById(id int) (string) {
@@ -117,7 +99,6 @@ func FindOrderAll() (string) {
 	return returnStr
 }
 
-//TODO сделать будущую покраску
 func FindAllProductIds() ([]string) {
 	return db.ReadAllProductsIds()
 }

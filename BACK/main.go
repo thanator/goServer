@@ -10,90 +10,12 @@ import (
 	"strings"
 )
 
+// вход в сервак - хэндлинг реквеста
 func main() {
-	//http.HandleFunc("/", foo)
 	http.HandleFunc("/", createOrder)
 	http.ListenAndServe(":3000", nil)
 
 }
-
-/*
-
-func foo(w http.ResponseWriter, r *http.Request) {
-	var err string
-
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-
-	//todo CASES
-	switch r.RequestURI {
-	case "/hi":
-		w.Write([]byte("OK"))
-	case "/goProjectSecond/FRONT/making_order.html":
-		switch r.Method {
-		case "POST":
-			if err := r.ParseForm(); err != nil {
-
-			}
-			volume := r.FormValue("volume")
-			fmt.Fprintf(w, "Volume = %s\n", volume)
-			log.Println(volume)
-		}
-	case "/manager":
-		model.GetWaitingOrder()
-	case "/manager/accept":
-		//model.AcceptOrder()
-	case "/making_order/create":
-		//err = model.MakeOrder("Молоко", 1, "2.5, "20171201", "Домик в деревне", "+780053535")
-		if err != "succ" {
-			w.Write([]byte(err))
-		}
-	case "/database":
-
-		dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", consts.DB_USER, consts.DB_PASSWORD, consts.DB_NAME)
-		dbase, err := sql.Open("postgres", dbinfo)
-
-		if err != nil {
-			w.Write([]byte(err.Error()))
-		}
-		//checkErr(err)
-
-		err = dbase.Ping()
-		if err != nil {
-			fmt.Println("Ping error, %s", err)
-			w.Write([]byte(err.Error()))
-		} else {
-
-		}
-
-		rows, err := dbase.Query("SELECT * FROM test")
-
-		if err != nil {
-			w.Write([]byte(err.Error()))
-		} else {
-
-			for rows.Next() {
-				var ivan string
-				var artem string
-				err := rows.Scan(&ivan, &artem)
-				if err != nil {
-					log.Fatal(err)
-				} else {
-					w.Write([]byte("artem:" + artem))
-					w.Write([]byte("ivan:" + ivan + "\n"))
-				}
-			}
-			rows.Close()
-		}
-
-		defer dbase.Close()
-
-	default:
-		w.Write([]byte("DEF"))
-	}
-
-}
-*/
 
 func createOrder(w http.ResponseWriter, r *http.Request) {
 
@@ -189,9 +111,11 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 		i, err := strconv.Atoi(tempStr[0])
 		if err != nil {
 			w.Write([]byte(err.Error()))
-		} else {
+		} else if len(tempStr) != 1{
 			model.SpisatProduct(i)
 			w.Write([]byte("Списано"))
+		} else {
+			w.Write([]byte("nope"))
 		}
 		return
 	case "/manager_req":
@@ -204,12 +128,6 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
-	/*if r.URL.Path != "/" {
-		fmt.Printf(r.URL.Path)
-		fmt.Fprintf(w, "kekeke\n")
-        http.Error(w, "404 not found.", http.StatusNotFound)
-        return
-    }*/
 	fmt.Printf("not error\n")
 	switch r.Method {
 	case "GET":
@@ -239,13 +157,6 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 		custphone := r.FormValue("phone")
 		order_id := r.FormValue("order_id")
 
-		//address := r.FormValue("address")
-		/*fmt.Printf("milktype = %s\n", milktype)
-		fmt.Printf("Volume = %s\n", volume)
-		fmt.Printf("fatness = %s\n", fatness)
-		fmt.Printf("delivery = %s\n", delivery)
-		fmt.Printf("creator = %s\n", creator)
-		fmt.Printf("custphone = %s\n", custphone)*/
 		fmt.Printf("order_id = %s\n", order_id)
 		if r.URL.Path == "/" {
 			http.Redirect(w, r, "/", http.StatusSeeOther)

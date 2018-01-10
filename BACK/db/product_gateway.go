@@ -77,23 +77,6 @@ func ReadProductById(productId int) (string) {
 
 func ReadProductByParams(typeOfMilc string, fatMilk string, proizvMilk string) (int, error) {
 
-	/*dbinfo := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", consts.DB_USER, consts.DB_PASSWORD, consts.DB_NAME)
-	dbase, err := sql.Open("postgres", dbinfo)
-
-	if err != nil {
-		return -1, err
-	}
-
-	err = dbase.Ping()
-	if err != nil {
-		fmt.Println("Ping error, %s", err)
-		return -1, err
-	} else {
-
-	}
-*/
-	//stringin := strconv.FormatFloat(fatMilk, 'f', 1, 64)
-
 	var str = "SELECT id FROM public.\"Product\" WHERE milktype = '" + typeOfMilc + "' AND fatness = " + fatMilk + " AND creator = '" + proizvMilk + "'"
 
 	rows, err := CreateConnection(str)
@@ -126,8 +109,8 @@ func ReadProductByParams(typeOfMilc string, fatMilk string, proizvMilk string) (
 }
 
 func UpdateProduct(id int) {
-		str := "UPDATE public.\"Product\" SET status = " + strconv.Itoa(1) + " WHERE id = " + strconv.Itoa(id)
-		CreateConnection(str)
+	str := "UPDATE public.\"Product\" SET status = " + strconv.Itoa(1) + " WHERE id = " + strconv.Itoa(id)
+	CreateConnection(str)
 }
 
 func ReadAllProductsIds() ([]string) {
@@ -147,7 +130,7 @@ func ReadAllProductsIds() ([]string) {
 				return []string{""}
 			} else {
 				if tempDead == 4 {
-					returnMas = append(returnMas, strconv.Itoa(tempInt) + "-" + consts.PRODUCT_STATUS[4])
+					returnMas = append(returnMas, strconv.Itoa(tempInt)+"-"+consts.PRODUCT_STATUS[4])
 				} else {
 					returnMas = append(returnMas, strconv.Itoa(tempInt))
 				}

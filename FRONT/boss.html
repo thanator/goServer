@@ -32,9 +32,19 @@
             <select id="boss_dropdown_prod" class="selectpicker select_my" name="order_id"
                     style="display: inline-block; margin-right: 10px; align: right; width: 100px">
             </select>
-            <button id="boss_find_prod" name="singlebutton" class="btn btn-success"
-                    style="display: inline-block; margin-left: 12px; font-size: 16px">Найти
-            </button>
+            <div style=" position: relative; display: inline-block; width: 100px; height: 20px; margin-left: 12px; font-size: 16px">
+                <button id="boss_find_prod" name="singlebutton" class="btn btn-success"
+                        style=" z-index: 10; left: 0;top: 0;position:absolute; width: 100px; height: 34px; font-size: 16px">
+                    Найти
+                </button>
+                <a href="" style="text-decoration: none; outline: none">
+                    <button id="boss_delete" name="singlebutton" class="btn btn-danger"
+                            style=" z-index: -10; left: 0;top: 0;position:absolute; width: 100px; height: 34px; font-size: 16px">
+                        Удалить
+                    </button>
+                </a>
+            </div>
+
             <button id="see_all_stock_boss" name="singlebutton" class="btn btn-success"
                     style="display: inline-block; width: 120px; height: 60px ;margin-left: 12px; white-space: normal; font-size: 16px">
                 Посмотреть весь склад
@@ -52,7 +62,7 @@
                     style="display: inline-block; margin-right: 10px; align: right; width: 100px">
             </select>
             <button id="boss_find_order" name="singlebutton" class="btn btn-success"
-                    style="display: inline-block; margin-left: 12px; font-size: 16px">Найти
+                    style="display: inline-block;width: 100px; margin-left: 12px; font-size: 16px">Найти
             </button>
             <button id="see_all_archive_boss" name="singlebutton" class="btn btn-success"
                     style="display: inline-block; width: 120px; height: 60px ;margin-left: 12px; white-space: normal; font-size: 16px">
@@ -60,11 +70,6 @@
             </button>
         </div>
     </div>
-    <a href="" style="text-decoration: none; outline: none">
-    <button id="boss_delete" name="singlebutton" class="btn btn-danger"
-            style="display: inline-block; width: 36px; margin-right: 10px">DEL
-    </button>
-    </a>
     <div class="cont_my">
         <h4 style="text-align: center">Итог поиска</h4>
         <textarea id="text_area_boss" readonly

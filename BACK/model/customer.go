@@ -4,10 +4,6 @@ import (
 	"../db"
 )
 
-/*
-func SeeAll() {
-
-}*/
 
 func MakeOrder(typeOfMilc string, milkVolume int, fatMilk string, deliveryDate string, proizvMilk string, phoneNumber string) (string) {
 
