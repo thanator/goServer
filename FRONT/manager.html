@@ -25,20 +25,26 @@
         <h4>Номер заказа</h4>
         <div style="horiz-align: center">
             <button id="manager_req" name="singlebutton" class="btn btn-success"
-                    style="display: inline-block; width: 36px; margin-right: 10px"> <span class="glyphicon">&#xe031;</span>
+                    style="display: inline-block; width: 36px; margin-right: 10px"><span
+                    class="glyphicon">&#xe031;</span>
             </button>
-            <select id="dropdown" class="selectpicker select_my" name="Выбор заказа"
-                    style="display: inline-block; margin-right: 10px; align: right; width: 70%">
-            </select>
-            <button id="singlebutton" name="singlebutton" class="btn btn-info"
-                    style="display: inline-block; width: 36px"><span class="glyphicon">&#xe003;</span>
-            </button>
+            <form action="/manager.html" method="POST" style="display: inline-block">
+                <select id="dropdown" class="selectpicker select_my" name="order_id"
+                        style="display: inline-block; margin-right: 10px; align: right; width: 300px">
+                </select>
+
+                <button id="manager_find" name="singlebutton" class="btn btn-info"
+                        style="display: inline-block; width: 36px"><span class="glyphicon">&#xe003;</span>
+                </button>
+            </form>
+
         </div>
     </div>
 
     <div class="cont_my">
         <h4 style="text-align: center">Подробные сведения о заказе</h4>
-        <textarea readonly style="height: 300px; width: 80%; margin-right: 10%; margin-left: 10%; font-size: 16px">
+        <textarea id="manager_text" readonly
+                  style="height: 300px; width: 80%; margin-right: 10%; margin-left: 10%; font-size: 16px">
                 Some text will be here
             </textarea>
     </div>

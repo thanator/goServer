@@ -26,15 +26,14 @@ func Login(name string, password string) (string) {
 
 // start of region Методы манагера
 
-/*func SelectById(id int) (string) {
+func SelectById(id int) (string) {
 	someShit, err := db.ReadOrder(id)
 	if err != nil {
 		return err.Error()
 	} else {
-
-		return "some string"
+		return someShit
 	}
-}*/
+}
 
 func GetWaitingOrder() ([]int) {
 	 masInt, err := db.ReadorderWithParam(consts.ORDER_WAITING)
@@ -44,12 +43,22 @@ func GetWaitingOrder() ([]int) {
 	 return []int{-1}
 }
 
-func DeclineOrder(id int) {
-	db.UpdateOrder(id, consts.ORDER_DECLINED)
+func DeclineOrder(id int) (string) {
+	err := db.UpdateOrder(id, consts.ORDER_DECLINED)
+	if err != nil {
+		return err.Error()
+	} else {
+		return "Вы отклонили заказ!"
+	}
 }
 
-func AcceptOrder(id int) {
-	db.UpdateOrder(id, consts.ORDER_ACCEPTED)
+func AcceptOrder(id int) (string){
+	err := db.UpdateOrder(id, consts.ORDER_ACCEPTED)
+	if err != nil {
+		return err.Error()
+	} else {
+		return "Вы одобрили заказ!"
+	}
 }
 
 // end of region Методы манагера
@@ -68,8 +77,45 @@ func FindProductAll() (*sql.Rows, error) {
 	return nil, nil
 }
 
-func FindOrderAll() (*sql.Rows, error) {
-	return nil, nil
+func FindOrderAll() (string) {
+	var masInt []int
+	var returnStr string
+
+	// пройтись по всем заказам и получить их ID-шники
+	masInt1, err := db.ReadorderWithParam(consts.ORDER_WAITING)
+	if err != nil {
+		return err.Error()
+	}
+	if masInt1[0] != -1 {
+		for _, element := range masInt1 {
+			masInt = append(masInt, element)
+		}
+	}
+	masInt2, err := db.ReadorderWithParam(consts.ORDER_ACCEPTED)
+	if err != nil {
+		return err.Error()
+	}
+	if masInt2[0] != -1 {
+		for _, element := range masInt2 {
+			masInt = append(masInt, element)
+		}
+	}
+	masInt3, err := db.ReadorderWithParam(consts.ORDER_DECLINED)
+	if err != nil {
+		return err.Error()
+	}
+	if masInt3[0] != -1 {
+		for _, element := range masInt3 {
+			masInt = append(masInt, element)
+		}
+	}
+	// получить описание заказов
+	for _, element := range masInt {
+		tempStr,_ := db.ReadOrder(element)
+		returnStr += tempStr
+	}
+
+	return returnStr
 }
 
 func SpisatProduct() {

@@ -95,11 +95,38 @@ func foo(w http.ResponseWriter, r *http.Request) {
 */
 
 func createOrder(w http.ResponseWriter, r *http.Request) {
-	switch r.URL.Path {
+
+	s := strings.Split(r.URL.Path, "&")
+
+	temp := s[0]
+
+
+	switch temp {
 	case "/making_order.html":
 		fmt.Printf("/ making order\n")
+	case "/manager.html":
+		fmt.Printf("manager.html")
 	case "/hi":
 		w.Write([]byte("OK"))
+		return
+	case "/accept_manager":
+		i, err := strconv.Atoi(s[1])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		} else {
+			w.Write([]byte(model.AcceptOrder(i)))
+		}
+		return
+	case "/deny_manager":
+		i, err := strconv.Atoi(s[1])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		} else {
+			w.Write([]byte(model.DeclineOrder(i)))
+		}
+		return
+	case "/see_all_archive_boss":
+		w.Write([]byte(model.FindOrderAll()))
 		return
 	case "/manager_req":
 		tempMas := model.GetWaitingOrder()
@@ -110,7 +137,6 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("ERROR"))
 			return
 		}
-
 	}
 	/*if r.URL.Path != "/" {
 		fmt.Printf(r.URL.Path)
@@ -145,21 +171,32 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 		delivery := r.FormValue("delivery")
 		creator := r.FormValue("creator")
 		custphone := r.FormValue("phone")
+		order_id := r.FormValue("order_id")
 
 		//address := r.FormValue("address")
-		fmt.Printf("milktype = %s\n", milktype)
+		/*fmt.Printf("milktype = %s\n", milktype)
 		fmt.Printf("Volume = %s\n", volume)
 		fmt.Printf("fatness = %s\n", fatness)
 		fmt.Printf("delivery = %s\n", delivery)
 		fmt.Printf("creator = %s\n", creator)
-		fmt.Printf("custphone = %s\n", custphone)
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		fmt.Printf("custphone = %s\n", custphone)*/
+		fmt.Printf("order_id = %s\n", order_id)
+		if r.URL.Path == "/" {
+			http.Redirect(w, r, "/", http.StatusSeeOther)
+			words := strings.Fields(fatness)
+			tempInt, _ := strconv.Atoi(volume)
+			stir := model.MakeOrder(milktype, tempInt, words[0], delivery, creator, custphone)
+			fmt.Printf("Final: " + stir)
+		} else {
+			tempInt, err := strconv.Atoi(order_id);
+			if err == nil {
+				model.SelectById(tempInt)
+			}
 
-		words := strings.Fields(fatness)
-		tempInt, _ := strconv.Atoi(volume)
-		stir := model.MakeOrder(milktype, tempInt, words[0], delivery, creator, custphone)
+			http.Redirect(w, r, r.URL.Path, http.StatusSeeOther)
+		}
 
-		fmt.Printf("Final: " + stir)
+
 
 	default:
 		fmt.Printf("Sorry, only GET and POST methods are supported.")
