@@ -31,4 +31,5 @@ var TYPE_OF_ORDER = map[int]string{
 var PRODUCT_STATUS = map[int]string{
 	1: "Списано",
 	2: "Не списано",
+	4: "Просрочено",
 }

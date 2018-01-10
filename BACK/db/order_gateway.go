@@ -61,7 +61,7 @@ func ReadorderWithParam(status int) ([]int, error) {
 	str := "SELECT id FROM public.\"Order\" WHERE order_status = " + strconv.Itoa(status)
 
 	rows, err := CreateConnection(str)
-	if err!= nil {
+	if err != nil {
 		return []int{-1, -1}, err
 	} else {
 
@@ -87,10 +87,36 @@ func ReadorderWithParam(status int) ([]int, error) {
 func UpdateOrder(orderId int, status int) (error) {
 	str := "UPDATE public.\"Order\" SET order_status = " + strconv.Itoa(status) + " WHERE id = " + strconv.Itoa(orderId)
 	_, err := CreateConnection(str)
-	if err!= nil {
+	if err != nil {
 		return err
 	} else {
 		return nil
 	}
+}
 
+func ReadAllOrderIds() ([]int) {
+	var returnMas []int
+
+	str := "SELECT id FROM public.\"Order\""
+
+	rows, err := CreateConnection(str)
+	if err != nil {
+		return []int{-1}
+	} else {
+		for rows.Next() {
+			var tempInt int
+			err := rows.Scan(&tempInt)
+			if err != nil {
+				return []int{-1}
+			} else {
+				returnMas = append(returnMas, tempInt)
+			}
+		}
+		rows.Close()
+		if len(returnMas) > 0 {
+			return returnMas
+		} else {
+			return []int{-1}
+		}
+	}
 }

@@ -19,7 +19,7 @@ func CreateProduct(typeOfMilc string, fatMilk string, proizvMilk string) (int, e
 
 func ReadAllProducts() (string) {
 	var returnString string
-	str := "SELECT milktype, fatness, creator, status FROM public.\"Product\""
+	str := "SELECT milktype, fatness, creator, status FROM public.\"Product\" WHERE status <> 1"
 	rows, err := CreateConnection(str)
 	if err != nil {
 		return err.Error()
@@ -64,7 +64,7 @@ func ReadProductById(productId int) (string) {
 			if err != nil {
 				return err.Error()
 			} else {
-				returnString += "Тип" + col1 + ", жирность: " + col2 + ", произв. " + col3 + ", статус: " + consts.PRODUCT_STATUS[col4] + "\n"
+				returnString += "Тип " + col1 + ", жирность: " + col2 + ", произв. " + col3 + ", статус: " + consts.PRODUCT_STATUS[col4] + "\n"
 			}
 		}
 		rows.Close()
@@ -126,5 +126,39 @@ func ReadProductByParams(typeOfMilc string, fatMilk string, proizvMilk string) (
 }
 
 func UpdateProduct(id int) {
+		str := "UPDATE public.\"Product\" SET status = " + strconv.Itoa(1) + " WHERE id = " + strconv.Itoa(id)
+		CreateConnection(str)
+}
+
+func ReadAllProductsIds() ([]string) {
+	var returnMas []string
+
+	str := "SELECT id, status FROM public.\"Product\" WHERE status <> 1"
+
+	rows, err := CreateConnection(str)
+	if err != nil {
+		return []string{""}
+	} else {
+		for rows.Next() {
+			var tempInt int
+			var tempDead int
+			err := rows.Scan(&tempInt, &tempDead)
+			if err != nil {
+				return []string{""}
+			} else {
+				if tempDead == 4 {
+					returnMas = append(returnMas, strconv.Itoa(tempInt) + "-" + consts.PRODUCT_STATUS[4])
+				} else {
+					returnMas = append(returnMas, strconv.Itoa(tempInt))
+				}
+			}
+		}
+		rows.Close()
+		if len(returnMas) > 0 {
+			return returnMas
+		} else {
+			return []string{""}
+		}
+	}
 
 }

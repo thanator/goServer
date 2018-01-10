@@ -16,6 +16,7 @@ func main() {
 	http.ListenAndServe(":3000", nil)
 
 }
+
 /*
 
 func foo(w http.ResponseWriter, r *http.Request) {
@@ -100,7 +101,6 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 
 	temp := s[0]
 
-
 	switch temp {
 	case "/making_order.html":
 		fmt.Printf("/ making order\n")
@@ -138,12 +138,61 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		return
-
 	case "/see_all_archive_boss":
 		w.Write([]byte(model.FindOrderAll()))
 		return
 	case "/see_all_stock_boss":
 		w.Write([]byte(model.FindProductAll()))
+		return
+	case "/boss_find_all_products_id":
+		tempMas := model.FindAllProductIds()
+		if tempMas[0] != "" {
+			w.Write([]byte(strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tempMas)), ","), "[]")))
+			return
+		} else {
+			w.Write([]byte("ERROR"))
+			return
+		}
+	case "/boss_find_all_archive_id":
+		tempMas := model.FindAllOrderIds()
+		if tempMas[0] != -1 {
+			w.Write([]byte(strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tempMas)), ","), "[]")))
+			return
+		} else {
+			w.Write([]byte("ERROR"))
+			return
+		}
+	case "/boss_find_prod":
+		i, err := strconv.Atoi(s[1])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		} else {
+			tempStr := model.FindProductById(i)
+			w.Write([]byte(tempStr))
+		}
+		return
+	case "/boss_find_order":
+		i, err := strconv.Atoi(s[1])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		} else {
+			tempStr, err := model.FindOrderById(i)
+			if err != nil {
+				w.Write([]byte(err.Error()))
+			} else {
+				w.Write([]byte(tempStr))
+			}
+		}
+		return
+	case "/boss_delete":
+		tempStr := strings.Split(s[1], "-")
+		i, err := strconv.Atoi(tempStr[0])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		} else {
+			model.SpisatProduct(i)
+			w.Write([]byte("Списано"))
+		}
 		return
 	case "/manager_req":
 		tempMas := model.GetWaitingOrder()
@@ -212,8 +261,6 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 
 			http.Redirect(w, r, r.URL.Path, http.StatusSeeOther)
 		}
-
-
 
 	default:
 		fmt.Printf("Sorry, only GET and POST methods are supported.")

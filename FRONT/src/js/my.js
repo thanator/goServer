@@ -30,7 +30,7 @@ $(document).ready(function () {
             type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/deny_manager" + "&" + id , success: function (result) {
+            url: "http://localhost:3000/deny_manager" + "&" + id, success: function (result) {
                 alert(result)
             }
         });
@@ -74,6 +74,38 @@ $(document).ready(function () {
         });
     });
 
+
+    $("#boss_find_all_products_id").click(function () {
+        $.ajax({
+            type: 'POST',
+            crossdomain: true,
+            dataType: 'text',
+            url: "http://localhost:3000/boss_find_all_products_id", success: function (result) {
+                $("#boss_dropdown_prod").find('option').remove();
+                var arr = result.split(",")
+                for (i = 0; i < arr.length; i++) {
+                    $("#boss_dropdown_prod").append('<option value="' + arr[i] + '">' + arr[i] + '</option>>')
+                }
+            }
+        });
+    });
+
+    $("#boss_find_all_archive_id").click(function () {
+        $.ajax({
+            type: 'POST',
+            crossdomain: true,
+            dataType: 'text',
+            url: "http://localhost:3000/boss_find_all_archive_id", success: function (result) {
+                $("#boss_dropdown_archive").find('option').remove();
+                var arr = result.split(",")
+                for (i = 0; i < arr.length; i++) {
+                    $("#boss_dropdown_archive").append('<option value="' + arr[i] + '">' + arr[i] + '</option>>')
+                }
+            }
+        });
+    });
+
+
     $("#manager_find").click(function () {
 
         var id = $("#dropdown").find("option:selected").text()
@@ -83,6 +115,47 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/manager_find" + "&" + id, success: function (result) {
                 $("#manager_text").html(result)
+            }
+        });
+    });
+
+    $("#boss_find_order").click(function () {
+
+        var id = $("#boss_dropdown_archive").find("option:selected").text()
+        $.ajax({
+            type: 'POST',
+            crossdomain: true,
+            dataType: 'text',
+            url: "http://localhost:3000/boss_find_order" + "&" + id, success: function (result) {
+                $("#text_area_boss").html(result)
+            }
+        });
+    });
+
+    $("#boss_find_prod").click(function () {
+
+        var id = $("#boss_dropdown_prod").find("option:selected").text()
+        $.ajax({
+            type: 'POST',
+            crossdomain: true,
+            dataType: 'text',
+            url: "http://localhost:3000/boss_find_prod" + "&" + id, success: function (result) {
+                $("#text_area_boss").html(result)
+            }
+        });
+    });
+
+
+
+    $("#boss_delete").click(function () {
+
+        var id = $("#boss_dropdown_prod").find("option:selected").text()
+        $.ajax({
+            type: 'POST',
+            crossdomain: true,
+            dataType: 'text',
+            url: "http://localhost:3000/boss_delete" + "&" + id, success: function (result) {
+                alert(result)
             }
         });
     });

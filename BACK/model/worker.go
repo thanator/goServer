@@ -1,7 +1,6 @@
 package model
 
 import (
-	"database/sql"
 	"../db"
 	"../consts"
 )
@@ -36,11 +35,11 @@ func SelectById(id int) (string) {
 }
 
 func GetWaitingOrder() ([]int) {
-	 masInt, err := db.ReadorderWithParam(consts.ORDER_WAITING)
-	 if len(masInt) > 0 && err == nil {
-	 	return masInt
-	 }
-	 return []int{-1}
+	masInt, err := db.ReadorderWithParam(consts.ORDER_WAITING)
+	if len(masInt) > 0 && err == nil {
+		return masInt
+	}
+	return []int{-1}
 }
 
 func DeclineOrder(id int) (string) {
@@ -52,7 +51,7 @@ func DeclineOrder(id int) (string) {
 	}
 }
 
-func AcceptOrder(id int) (string){
+func AcceptOrder(id int) (string) {
 	err := db.UpdateOrder(id, consts.ORDER_ACCEPTED)
 	if err != nil {
 		return err.Error()
@@ -65,8 +64,8 @@ func AcceptOrder(id int) (string){
 
 // start of region Методы босса
 
-func FindProductById(productId int) (*sql.Rows, error) {
-	return nil, nil
+func FindProductById(productId int) (string) {
+	return db.ReadProductById(productId)
 }
 
 func FindOrderById(orderId int) (string, error) {
@@ -111,15 +110,55 @@ func FindOrderAll() (string) {
 	}
 	// получить описание заказов
 	for _, element := range masInt {
-		tempStr,_ := db.ReadOrder(element)
+		tempStr, _ := db.ReadOrder(element)
 		returnStr += tempStr
 	}
 
 	return returnStr
 }
 
-func SpisatProduct() {
+//TODO сделать будущую покраску
+func FindAllProductIds() ([]string) {
+	return db.ReadAllProductsIds()
+}
 
+func FindAllOrderIds() ([]int) {
+
+	var masInt []int
+
+	// пройтись по всем заказам и получить их ID-шники
+	masInt1, err := db.ReadorderWithParam(consts.ORDER_WAITING)
+	if err != nil {
+		return []int{-1}
+	}
+	if masInt1[0] != -1 {
+		for _, element := range masInt1 {
+			masInt = append(masInt, element)
+		}
+	}
+	masInt2, err := db.ReadorderWithParam(consts.ORDER_ACCEPTED)
+	if err != nil {
+		return []int{-1}
+	}
+	if masInt2[0] != -1 {
+		for _, element := range masInt2 {
+			masInt = append(masInt, element)
+		}
+	}
+	masInt3, err := db.ReadorderWithParam(consts.ORDER_DECLINED)
+	if err != nil {
+		return []int{-1}
+	}
+	if masInt3[0] != -1 {
+		for _, element := range masInt3 {
+			masInt = append(masInt, element)
+		}
+	}
+	return masInt
+}
+
+func SpisatProduct(id int) {
+	db.UpdateProduct(id)
 }
 
 // end of region Методы босса
