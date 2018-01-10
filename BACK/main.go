@@ -125,8 +125,25 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(model.DeclineOrder(i)))
 		}
 		return
+	case "/manager_find":
+		i, err := strconv.Atoi(s[1])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		} else {
+			tempStr, err := model.FindOrderById(i)
+			if err != nil {
+				w.Write([]byte(err.Error()))
+			} else {
+				w.Write([]byte(tempStr))
+			}
+		}
+		return
+
 	case "/see_all_archive_boss":
 		w.Write([]byte(model.FindOrderAll()))
+		return
+	case "/see_all_stock_boss":
+		w.Write([]byte(model.FindProductAll()))
 		return
 	case "/manager_req":
 		tempMas := model.GetWaitingOrder()

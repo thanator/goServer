@@ -69,12 +69,12 @@ func FindProductById(productId int) (*sql.Rows, error) {
 	return nil, nil
 }
 
-func FindOrderById(orderId int) (*sql.Rows, error) {
-	return nil, nil
+func FindOrderById(orderId int) (string, error) {
+	return db.ReadOrder(orderId)
 }
 
-func FindProductAll() (*sql.Rows, error) {
-	return nil, nil
+func FindProductAll() (string) {
+	return db.ReadAllProducts()
 }
 
 func FindOrderAll() (string) {

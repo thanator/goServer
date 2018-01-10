@@ -41,8 +41,8 @@ $(document).ready(function () {
             type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/hi", success: function (result) {
-                $("#text_area_boss").html(result + " 1")
+            url: "http://localhost:3000/see_all_stock_boss", success: function (result) {
+                $("#text_area_boss").html(result)
 
             }
         });
@@ -75,11 +75,13 @@ $(document).ready(function () {
     });
 
     $("#manager_find").click(function () {
+
+        var id = $("#dropdown").find("option:selected").text()
         $.ajax({
             type: 'POST',
             crossdomain: true,
             dataType: 'text',
-            url: "http://localhost:3000/manager_find", success: function (result) {
+            url: "http://localhost:3000/manager_find" + "&" + id, success: function (result) {
                 $("#manager_text").html(result)
             }
         });

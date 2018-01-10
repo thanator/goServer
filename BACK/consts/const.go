@@ -17,13 +17,6 @@ var MILK_TYPE = map[int]string{
 	3: "Сливки",
 }
 
-var MILK_CREATOR = map[int]string{
-	1: "Домик в деревне",
-	2: "36 копеек",
-	3: "Простоквашино",
-	4: "Яшкино",
-}
-
 var ORDER_STATUS = map[int]string{
 	1: "Ожидание",
 	2: "Одобрено",
@@ -33,4 +26,9 @@ var ORDER_STATUS = map[int]string{
 var TYPE_OF_ORDER = map[int]string{
 	1: "Продажа",
 	2: "Покупка",
+}
+
+var PRODUCT_STATUS = map[int]string{
+	1: "Списано",
+	2: "Не списано",
 }

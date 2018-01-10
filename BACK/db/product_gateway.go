@@ -1,13 +1,13 @@
 package db
 
 import (
-	"database/sql"
 	"strconv"
+	"../consts"
 )
 
 func CreateProduct(typeOfMilc string, fatMilk string, proizvMilk string) (int, error) {
 
-	var str = "INSERT INTO public.\"Product\" (id, milktype, fatness, creator) VALUES (nextval('\"Product_id_seq\"'::regclass), '" + typeOfMilc + "', " + fatMilk + ", '" + proizvMilk + "')"
+	var str = "INSERT INTO public.\"Product\" (id, milktype, fatness, creator, status) VALUES (nextval('\"Product_id_seq\"'::regclass), '" + typeOfMilc + "', " + fatMilk + ", '" + proizvMilk + "', 2)"
 
 	_, err := CreateConnection(str)
 	if err != nil {
@@ -17,8 +17,62 @@ func CreateProduct(typeOfMilc string, fatMilk string, proizvMilk string) (int, e
 	return ReadProductByParams(typeOfMilc, fatMilk, proizvMilk)
 }
 
-func ReadProductById(productId int) (*sql.Rows, error) {
-	return nil, nil
+func ReadAllProducts() (string) {
+	var returnString string
+	str := "SELECT milktype, fatness, creator, status FROM public.\"Product\""
+	rows, err := CreateConnection(str)
+	if err != nil {
+		return err.Error()
+	} else {
+		for rows.Next() {
+			var col1 string
+			var col2 string
+			var col3 string
+			var col4 int
+
+			err := rows.Scan(&col1, &col2, &col3, &col4)
+			if err != nil {
+				return err.Error()
+			} else {
+				returnString += "Тип " + col1 + ", жирность: " + col2 + "\nПроизв. " + col3 + ", статус: " + consts.PRODUCT_STATUS[col4] + "\n"
+			}
+		}
+		rows.Close()
+		if len(returnString) > 0 {
+			return returnString
+		}
+		return ""
+	}
+}
+
+func ReadProductById(productId int) (string) {
+	var returnString string
+
+	str := "SELECT milktype, fatness, creator, status FROM public.\"Product\" WHERE id = " + strconv.Itoa(productId)
+	rows, err := CreateConnection(str)
+
+	if err != nil {
+		return err.Error()
+	} else {
+		for rows.Next() {
+			var col1 string
+			var col2 string
+			var col3 string
+			var col4 int
+
+			err := rows.Scan(&col1, &col2, &col3, &col4)
+			if err != nil {
+				return err.Error()
+			} else {
+				returnString += "Тип" + col1 + ", жирность: " + col2 + ", произв. " + col3 + ", статус: " + consts.PRODUCT_STATUS[col4] + "\n"
+			}
+		}
+		rows.Close()
+		if len(returnString) > 0 {
+			return returnString
+		}
+		return ""
+	}
 }
 
 func ReadProductByParams(typeOfMilc string, fatMilk string, proizvMilk string) (int, error) {
