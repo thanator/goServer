@@ -2,24 +2,29 @@ package main
 
 import (
 	"fmt"
-	_ "github.com/lib/pq"
 	"net/http"
-	_ "./db"
-	"./model"
 	"strconv"
 	"strings"
+
+	"./db"
+	"./model"
+	_ "github.com/lib/pq"
 )
 
 // вход в сервак - хэндлинг реквеста
 func main() {
-	http.HandleFunc("/", createOrder)
-	http.ListenAndServe(":3000", nil)
+	http.HandleFunc("/", doSmth)
+	err := http.ListenAndServe(":3000", nil)
+	if err != nil {
+		fmt.Printf(err.Error())
+	}
 
 }
 
-func createOrder(w http.ResponseWriter, r *http.Request) {
+func doSmth(w http.ResponseWriter, r *http.Request) {
 
 	s := strings.Split(r.URL.Path, "&")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	temp := s[0]
 
@@ -30,6 +35,9 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("manager.html")
 	case "/hi":
 		w.Write([]byte("OK"))
+		return
+	case "/tesbDB":
+		w.Write([]byte(db.ReadAllProducts()))
 		return
 	case "/accept_manager":
 		i, err := strconv.Atoi(s[1])
@@ -111,7 +119,7 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 		i, err := strconv.Atoi(tempStr[0])
 		if err != nil {
 			w.Write([]byte(err.Error()))
-		} else if len(tempStr) != 1{
+		} else if len(tempStr) != 1 {
 			model.SpisatProduct(i)
 			w.Write([]byte("Списано"))
 		} else {
@@ -128,18 +136,22 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+
 	fmt.Printf("not error\n")
+
 	switch r.Method {
 	case "GET":
-		var str string
-		if r.URL.Path == "/" {
-			str = "./FRONT/index.html"
-		} else {
-			fmt.Printf("Getted\n")
-			str = "./FRONT/" + r.URL.Path
-		}
+		var str string //http://localhost:8080/FRONT/making_order.html
+		// if r.URL.Path == "/" {
+		// 	//r.Host = "127.0.0.1:8080"
+		// 	str = "./FRONT/index.html"
+		// } else {
+		// 	fmt.Printf("Getted\n")
+		// 	str = "./FRONT/" + r.URL.Path
+		// }
 		fmt.Printf(str)
-		http.ServeFile(w, r, str)
+		http.Redirect(w, r, "http://127.0.0.1:8080/FRONT/index.html", 301)
+		//http.ServeFile(w, r, str)
 
 	case "POST":
 		fmt.Printf("posted\n")
@@ -165,7 +177,7 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 			stir := model.MakeOrder(milktype, tempInt, words[0], delivery, creator, custphone)
 			fmt.Printf("Final: " + stir)
 		} else {
-			tempInt, err := strconv.Atoi(order_id);
+			tempInt, err := strconv.Atoi(order_id)
 			if err == nil {
 				model.SelectById(tempInt)
 			}
@@ -176,4 +188,5 @@ func createOrder(w http.ResponseWriter, r *http.Request) {
 	default:
 		fmt.Printf("Sorry, only GET and POST methods are supported.")
 	}
+
 }

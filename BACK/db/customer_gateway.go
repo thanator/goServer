@@ -2,14 +2,14 @@ package db
 
 import (
 	"database/sql"
-	"strconv"
 	"log"
+	"strconv"
 )
 
 func CreateCustomer(phone string) (int, error) {
 
 	str := "INSERT INTO public.\"Customer\" VALUES (nextval('\"Customer_id_seq\"'::regclass), '" + phone + "')"
-
+	println(str)
 	_, err := CreateConnection(str)
 	if err != nil {
 		return -1, err
@@ -38,8 +38,8 @@ func ReadCustomerByPhone(phone string) (int, error) {
 			err := rows.Scan(&i)
 			if err != nil {
 				rows.Close()
-				return -1, err
 				log.Fatal(err)
+				return -1, err
 			} else {
 				int2, err := strconv.Atoi(i)
 				if err != nil {

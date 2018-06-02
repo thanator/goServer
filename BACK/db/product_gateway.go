@@ -2,12 +2,13 @@ package db
 
 import (
 	"strconv"
+
 	"../consts"
 )
 
 func CreateProduct(typeOfMilc string, fatMilk string, proizvMilk string) (int, error) {
 
-	var str = "INSERT INTO public.\"Product\" (id, milktype, fatness, creator, status) VALUES (nextval('\"Product_id_seq\"'::regclass), '" + typeOfMilc + "', " + fatMilk + ", '" + proizvMilk + "', 2)"
+	var str = "INSERT INTO public.\"Product\" (id, typemilk, fatness, creator, status) VALUES (nextval('\"Product_id_seq\"'::regclass), '" + typeOfMilc + "', " + fatMilk + ", '" + proizvMilk + "', 2)"
 
 	_, err := CreateConnection(str)
 	if err != nil {
@@ -17,9 +18,9 @@ func CreateProduct(typeOfMilc string, fatMilk string, proizvMilk string) (int, e
 	return ReadProductByParams(typeOfMilc, fatMilk, proizvMilk)
 }
 
-func ReadAllProducts() (string) {
+func ReadAllProducts() string {
 	var returnString string
-	str := "SELECT milktype, fatness, creator, status FROM public.\"Product\" WHERE status <> 1"
+	str := "SELECT typemilk, fatness, creator, status FROM public.\"Product\" WHERE status <> 1"
 	rows, err := CreateConnection(str)
 	if err != nil {
 		return err.Error()
@@ -45,10 +46,10 @@ func ReadAllProducts() (string) {
 	}
 }
 
-func ReadProductById(productId int) (string) {
+func ReadProductById(productId int) string {
 	var returnString string
 
-	str := "SELECT milktype, fatness, creator, status FROM public.\"Product\" WHERE id = " + strconv.Itoa(productId)
+	str := "SELECT typemilk, fatness, creator, status FROM public.\"Product\" WHERE id = " + strconv.Itoa(productId)
 	rows, err := CreateConnection(str)
 
 	if err != nil {
@@ -77,8 +78,8 @@ func ReadProductById(productId int) (string) {
 
 func ReadProductByParams(typeOfMilc string, fatMilk string, proizvMilk string) (int, error) {
 
-	var str = "SELECT id FROM public.\"Product\" WHERE milktype = '" + typeOfMilc + "' AND fatness = " + fatMilk + " AND creator = '" + proizvMilk + "'"
-
+	var str = "SELECT id FROM public.\"Product\" WHERE typemilk = '" + typeOfMilc + "' AND fatness = " + fatMilk + " AND creator = '" + proizvMilk + "'"
+	println(str)
 	rows, err := CreateConnection(str)
 
 	if err != nil {
@@ -113,7 +114,7 @@ func UpdateProduct(id int) {
 	CreateConnection(str)
 }
 
-func ReadAllProductsIds() ([]string) {
+func ReadAllProductsIds() []string {
 	var returnMas []string
 
 	str := "SELECT id, status FROM public.\"Product\" WHERE status <> 1"

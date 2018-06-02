@@ -21,10 +21,10 @@
 <body>
 <div style="padding-top: 5%"></div>
 <div class="center-block" style="text-align: center; padding: 24px">
-    <h2 id="test">Make your order, BITCH!</h2>
+    <h2 id="test">Make your choice!</h2>
 </div>
 <div id="cont_for_order" class="z-depth-5">
-    <form action="/" method="POST">
+    <form action="http://127.0.0.1:3000/" method="POST" enctype="application/x-www-form-urlencoded">
     <div class="cont_my">
         <h4>Тип товара</h4>
         <select name="type" class="selectpicker select_my">
@@ -35,7 +35,7 @@
     </div>
     <div class="cont_my">
         <h4>Объём</h4>
-        <input name="volume" type="text" class="form-control">
+        <input name="volume" type="text" class="form-control" required="required">
     </div>
     <div class="cont_my">
         <h4>Жирность</h4>
@@ -53,7 +53,7 @@
                 <div class='col-sm-12' style="padding: 0;">
                     <div class="form-group">
                         <div class='input-group date' id='datetimepicker1'>
-                            <input name="delivery" type='text' class="form-control" style="font-size: 16px"/>
+                            <input required="required" name="delivery" type='text' class="form-control" style="font-size: 16px"/>
                             <span class="input-group-addon" style="width: 30px">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -81,19 +81,13 @@
     </div>
     <div class="cont_my">
         <h4>Телефон заказчика</h4>
-        <input name="phone" type="text" class="form-control">
+        <input required="required" name="phone" type="text" class="form-control">
     </div>
 
     <div class="form-group">
         <div class="d-flex justify-content-center">
             <input type="submit" value="Оформить заказ!" id="accept_order" name="singlebutton" class="btn btn-success"
                    style="height: 50px; border-radius: 16px; font-size: 15px">
-            <!--<button type="submit" value="submit" id="first_button1" name="singlebutton" class="btn btn-success"
-                    style="height: 50px; border-radius: 16px; font-size: 15px">
-                Оформить заказ!
-            </button>-->
-            <!--<a href="" style="text-decoration: none; outline: none">
-            </a>-->
         </div>
     </div>
     </form>
