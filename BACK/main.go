@@ -30,6 +30,7 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 	visitor := new(model.ExportXmlVisitor)
 	bossWorker := new(model.BossWorker)
 	managerWorker := new(model.ManagerWorker)
+	order := model.Order{new(model.StateEmpty)}
 
 	s := strings.Split(r.URL.Path, "&")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -74,7 +75,7 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			w.Write([]byte(err.Error()))
 		} else {
-			tempStr, err := model.FindOrderById(i)
+			tempStr, _, err := model.FindOrderById(i)
 			if err != nil {
 				w.Write([]byte(err.Error()))
 			} else {
@@ -120,14 +121,54 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			w.Write([]byte(err.Error()))
 		} else {
-			tempStr, err := model.FindOrderById(i)
+
+			tempStr, orderId, err := model.FindOrderById(i)
 			if err != nil {
 				w.Write([]byte(err.Error()))
 			} else {
-				w.Write([]byte(tempStr))
+				// str := handle()...
+				str1 := strconv.Itoa(orderId) + "_" + tempStr
+				w.Write([]byte(str1))
 			}
 		}
 		return
+
+	case "/boss_accept":
+		i, err := strconv.Atoi(s[1])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		} else {
+			_, orderStatus, _ := model.FindOrderById(i)
+
+			if orderStatus == 1 {
+				order.SetState(new(model.StateWaiting))
+			} else if orderStatus == 2 {
+				order.SetState(new(model.StatePositive))
+			} else {
+				order.SetState(new(model.StateNegative))
+			}
+		}
+
+		order.ManageOrderAccept(i)
+		return
+	case "/boss_decline":
+		i, err := strconv.Atoi(s[1])
+		if err != nil {
+			w.Write([]byte(err.Error()))
+		} else {
+			_, orderStatus, _ := model.FindOrderById(i)
+			if orderStatus == 1 {
+				order.SetState(new(model.StateWaiting))
+			} else if orderStatus == 2 {
+				order.SetState(new(model.StatePositive))
+			} else {
+				order.SetState(new(model.StateNegative))
+			}
+		}
+
+		order.ManageOrderDeny(i)
+		return
+
 	case "/boss_delete":
 		tempStr := strings.Split(s[1], "-")
 		i, err := strconv.Atoi(tempStr[0])
@@ -139,6 +180,7 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 		} else {
 			w.Write([]byte("nope"))
 		}
+
 		return
 	case "/manager_req":
 		tempMas := model.GetWaitingOrder()

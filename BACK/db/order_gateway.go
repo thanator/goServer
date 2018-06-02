@@ -1,12 +1,13 @@
 package db
 
 import (
-	"time"
 	"strconv"
+	"time"
+
 	"../consts"
 )
 
-func CreateOrder(productId int, orderVolume int, date string, customerId int) (error) {
+func CreateOrder(productId int, orderVolume int, date string, customerId int) error {
 
 	someDate1, someDate2, someDate3 := time.Now().Date()
 
@@ -22,14 +23,14 @@ func CreateOrder(productId int, orderVolume int, date string, customerId int) (e
 	}
 }
 
-func ReadOrder(orderId int) (string, error) {
+func ReadOrder(orderId int) (string, int, error) {
 	var returnString string
-
-	str := "SELECT o.id, p.milktype, o.volume_all, o.order_type, c.customer_phone, o.order_date, o.deliver_till, o.order_status FROM public.\"Order\" as o INNER JOIN public.\"Product\" as p ON o.product_id = p.id INNER JOIN public.\"Customer\" as c ON o.customer_id = c.id WHERE o.id = " + strconv.Itoa(orderId)
+	i := -1
+	str := "SELECT o.id, p.typemilk, o.volume_all, o.order_type, c.customer_phone, o.order_date, o.deliver_till, o.order_status FROM public.\"Order\" as o INNER JOIN public.\"Product\" as p ON o.product_id = p.id INNER JOIN public.\"Customer\" as c ON o.customer_id = c.id WHERE o.id = " + strconv.Itoa(orderId)
 
 	rows, err := CreateConnection(str)
 	if err != nil {
-		return "", err
+		return "", i, err
 	} else {
 		for rows.Next() {
 			var col1 string
@@ -42,17 +43,18 @@ func ReadOrder(orderId int) (string, error) {
 			var col8 int
 			err := rows.Scan(&col1, &col2, &col3, &col4, &col5, &col6, &col7, &col8)
 			if err != nil {
-				return "", err
+				return "", i, err
 			} else {
+				i = col8
 				returnString += "Заказ №" + col1 + ", тип: " + col2 + "," + consts.TYPE_OF_ORDER[col4] + ", статус: " + consts.ORDER_STATUS[col8] + "\n"
 			}
 		}
 		if len(returnString) > 0 {
-			return returnString, nil
+			return returnString, i, nil
 		}
 		rows.Close()
 	}
-	return "", nil
+	return "", i, nil
 }
 
 func ReadorderWithParam(status int) ([]int, error) {
@@ -84,7 +86,7 @@ func ReadorderWithParam(status int) ([]int, error) {
 
 }
 
-func UpdateOrder(orderId int, status int) (error) {
+func UpdateOrder(orderId int, status int) error {
 	str := "UPDATE public.\"Order\" SET order_status = " + strconv.Itoa(status) + " WHERE id = " + strconv.Itoa(orderId)
 	_, err := CreateConnection(str)
 	if err != nil {
@@ -94,7 +96,7 @@ func UpdateOrder(orderId int, status int) (error) {
 	}
 }
 
-func ReadAllOrderIds() ([]int) {
+func ReadAllOrderIds() []int {
 	var returnMas []int
 
 	str := "SELECT id FROM public.\"Order\""

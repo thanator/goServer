@@ -17,7 +17,7 @@ func FindProductById(productId int) string {
 	return db.ReadProductById(productId)
 }
 
-func FindOrderById(orderId int) (string, error) {
+func FindOrderById(orderId int) (string, int, error) {
 	return db.ReadOrder(orderId)
 }
 
@@ -59,7 +59,7 @@ func FindOrderAll() string {
 	}
 	// получить описание заказов
 	for _, element := range masInt {
-		tempStr, _ := db.ReadOrder(element)
+		tempStr, _, _ := db.ReadOrder(element)
 		returnStr += tempStr
 	}
 

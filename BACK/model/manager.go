@@ -14,7 +14,7 @@ func (e *ManagerWorker) Accept(visitor Visitor) {
 // start of region Методы манагера
 
 func SelectById(id int) string {
-	someShit, err := db.ReadOrder(id)
+	someShit, _, err := db.ReadOrder(id)
 	if err != nil {
 		return err.Error()
 	} else {
