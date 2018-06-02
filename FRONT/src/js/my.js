@@ -170,5 +170,32 @@ $(document).ready(function () {
             }
         });
     });
+
+    // region visitor pattern
+
+    $("#boss_export_xml").click(function () {
+        $.ajax({
+            type: 'POST',
+            crossdomain: true,
+            dataType: 'text',
+            url: "http://localhost:3000/xmlForBoss", success: function (result) {
+                alert(result);
+            }
+        });
+    });
+
+    $("#manager_export_xml").click(function () {
+        $.ajax({
+            type: 'POST',
+            crossdomain: true,
+            dataType: 'text',
+            url: "http://localhost:3000/xmlForManager", success: function (result) {
+                alert(result);
+            }
+        });
+    });
+
+    //enregion visitor pattern
+
 });
 

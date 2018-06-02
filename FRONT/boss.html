@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,89 +15,84 @@
     <meta charset="UTF-8">
     <title>Boss</title>
 </head>
+
 <body style="height: 100vh">
 
-<div style="padding-top: 5%"></div>
-<div class="center-block" style="text-align: center; padding: 24px">
-    <h2>IBoss</h2>
-</div>
+    <div style="padding-top: 5%"></div>
+    <div class="center-block" style="text-align: center; padding: 24px">
+        <h2>IBoss</h2>
+    </div>
 
-
-<div id="cont_for_order" class="z-depth-5">
-    <div class="cont_my" style="text-align: center">
-        <div style="align-items: center">
-            <button id="boss_find_all_products_id" name="singlebutton" class="btn btn-info"
-                    style="display: inline-block; width: 36px; margin-right: 10px"><span
-                    class="glyphicon">&#xe031;</span>
-            </button>
-            <select id="boss_dropdown_prod" class="selectpicker select_my" name="order_id"
-                    style="display: inline-block; margin-right: 10px; align: right; width: 100px">
-            </select>
-            <div style=" position: relative; display: inline-block; width: 100px; height: 20px; margin-left: 12px; font-size: 16px">
-                <button id="boss_find_prod" name="singlebutton" class="btn btn-success"
-                        style=" z-index: 10; left: 0;top: 0;position:absolute; width: 100px; height: 34px; font-size: 16px">
-                    Найти
+    <div id="cont_for_order" class="z-depth-5">
+        <div class="cont_my" style="text-align: center">
+            <div style="align-items: center">
+                <button id="boss_find_all_products_id" name="singlebutton" class="btn btn-info" style="display: inline-block; width: 36px; margin-right: 10px">
+                    <span class="glyphicon">&#xe031;</span>
                 </button>
-                <a href="" style="text-decoration: none; outline: none">
-                    <button id="boss_delete" name="singlebutton" class="btn btn-danger"
-                            style=" z-index: -10; left: 0;top: 0;position:absolute; width: 100px; height: 34px; font-size: 16px">
-                        Удалить
+                <select id="boss_dropdown_prod" class="selectpicker select_my" name="order_id" style="display: inline-block; margin-right: 10px; align: right; width: 100px">
+                </select>
+                <div style=" position: relative; display: inline-block; width: 100px; height: 20px; margin-left: 12px; font-size: 16px">
+                    <button id="boss_find_prod" name="singlebutton" class="btn btn-success" style=" z-index: 10; left: 0;top: 0;position:absolute; width: 100px; height: 34px; font-size: 16px">
+                        Найти
                     </button>
-                </a>
+                    <a href="" style="text-decoration: none; outline: none">
+                        <button id="boss_delete" name="singlebutton" class="btn btn-danger" style=" z-index: -10; left: 0;top: 0;position:absolute; width: 100px; height: 34px; font-size: 16px">
+                            Удалить
+                        </button>
+                    </a>
+                </div>
+
+                <button id="see_all_stock_boss" name="singlebutton" class="btn btn-success" style="display: inline-block; width: 120px; height: 60px ;margin-left: 12px; white-space: normal; font-size: 16px">
+                    Посмотреть весь склад
+                </button>
             </div>
-
-            <button id="see_all_stock_boss" name="singlebutton" class="btn btn-success"
-                    style="display: inline-block; width: 120px; height: 60px ;margin-left: 12px; white-space: normal; font-size: 16px">
-                Посмотреть весь склад
-            </button>
         </div>
-    </div>
 
-    <div class="cont_my" style="text-align: center">
-        <div style="align-items: center">
-            <button id="boss_find_all_archive_id" name="singlebutton" class="btn btn-info"
-                    style="display: inline-block; width: 36px; margin-right: 10px"><span
-                    class="glyphicon">&#xe031;</span>
-            </button>
-            <select id="boss_dropdown_archive" class="selectpicker select_my" name="order_id"
-                    style="display: inline-block; margin-right: 10px; align: right; width: 100px">
-            </select>
-            <button id="boss_find_order" name="singlebutton" class="btn btn-success"
-                    style="display: inline-block;width: 100px; margin-left: 12px; font-size: 16px">Найти
-            </button>
-            <button id="see_all_archive_boss" name="singlebutton" class="btn btn-success"
-                    style="display: inline-block; width: 120px; height: 60px ;margin-left: 12px; white-space: normal; font-size: 16px">
-                Посмотреть весь архив
-            </button>
+        <div class="cont_my" style="text-align: center">
+            <div style="align-items: center">
+                <button id="boss_find_all_archive_id" name="singlebutton" class="btn btn-info" style="display: inline-block; width: 36px; margin-right: 10px">
+                    <span class="glyphicon">&#xe031;</span>
+                </button>
+                <select id="boss_dropdown_archive" class="selectpicker select_my" name="order_id" style="display: inline-block; margin-right: 10px; align: right; width: 100px">
+                </select>
+                <button id="boss_find_order" name="singlebutton" class="btn btn-success" style="display: inline-block;width: 100px; margin-left: 12px; font-size: 16px">Найти
+                </button>
+                <button id="see_all_archive_boss" name="singlebutton" class="btn btn-success" style="display: inline-block; width: 120px; height: 60px ;margin-left: 12px; white-space: normal; font-size: 16px">
+                    Посмотреть весь архив
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="cont_my">
-        <h4 style="text-align: center">Итог поиска</h4>
-        <textarea id="text_area_boss" readonly
-                  style="height: 300px; width: 80%; margin-right: 10%; margin-left: 10%; font-size: 16px ">
+        <div class="cont_my">
+            <h4 style="text-align: center">Итог поиска</h4>
+            <textarea id="text_area_boss" readonly style="height: 300px; width: 80%; margin-right: 10%; margin-left: 10%; font-size: 16px ">
                 Some text will be here
             </textarea>
+        </div>
     </div>
-</div>
 
 
-<div class="align-right" style="position: absolute; bottom: 0; right: 0">
-    <div class="btn-group">
-        <a href="manager.html" style="text-decoration: none; outline: none">
-            <button type="button" class="btn btn-info" style="width: 10vw; border-top-left-radius: 8px">Манагер</button>
-        </a>
-        <a href="boss.html" style="text-decoration: none; outline: none">
-            <button type="button" class="btn btn-info" style="width: 10vw">Босс</button>
+
+    <div class="align-right" style="position: absolute; bottom: 0; right: 0">
+        <div class="btn-group">
+            <a href="index.html" style="text-decoration: none; outline: none">
+                <button id="boss_export_xml" type="button" class="btn btn-warning" style="width: 10vw; border-top-left-radius: 8px">Экспорт в хтмл</button>
+            </a>
+            <a href="manager.html" style="text-decoration: none; outline: none">
+                <button type="button" class="btn btn-info" style="width: 10vw; border-top-left-radius: 8px">Манагер</button>
+            </a>
+            <a href="boss.html" style="text-decoration: none; outline: none">
+                <button type="button" class="btn btn-info" style="width: 10vw">Босс</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="align-right" style="position: absolute; top:0 ; right: 0">
+        <a href="index.html" style="text-decoration: none; outline: none">
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon">&#xe079;</span>
+            </button>
         </a>
     </div>
-</div>
-
-<div class="align-right" style="position: absolute; top:0 ; right: 0">
-    <a href="index.html" style="text-decoration: none; outline: none">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon">&#xe079;</span>
-        </button>
-    </a>
-</div>
 </body>
+
 </html>

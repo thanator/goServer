@@ -8,7 +8,7 @@ import (
 type ManagerWorker struct{}
 
 func (e *ManagerWorker) Accept(visitor Visitor) {
-	visitor.visitManager(e)
+	visitor.visitManager()
 }
 
 // start of region Методы манагера

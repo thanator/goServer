@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -14,83 +15,83 @@
     <meta charset="UTF-8">
     <title>Manager</title>
 </head>
+
 <body style="height: 100vh">
-<div style="padding-top: 5%"></div>
-<div class="center-block" style="text-align: center; padding: 24px">
-    <h2>IManager</h2>
-</div>
+    <div style="padding-top: 5%"></div>
+    <div class="center-block" style="text-align: center; padding: 24px">
+        <h2>IManager</h2>
+    </div>
 
-<div id="cont_for_order" class="z-depth-5">
-    <div class="cont_my" style="text-align: center">
-        <h4>Номер заказа</h4>
-        <div style="horiz-align: center">
-            <button id="manager_req" name="singlebutton" class="btn btn-success"
-                    style="display: inline-block; width: 36px; margin-right: 10px"><span
-                    class="glyphicon">&#xe031;</span>
-            </button>
-
-                <select id="dropdown" class="selectpicker select_my" name="order_id"
-                        style="display: inline-block; margin-right: 10px; align: right; width: 300px">
-                </select>
-
-                <button id="manager_find" name="singlebutton" class="btn btn-info"
-                        style="display: inline-block; width: 36px"><span class="glyphicon">&#xe003;</span>
+    <div id="cont_for_order" class="z-depth-5">
+        <div class="cont_my" style="text-align: center">
+            <h4>Номер заказа</h4>
+            <div style="horiz-align: center">
+                <button id="manager_req" name="singlebutton" class="btn btn-success" style="display: inline-block; width: 36px; margin-right: 10px">
+                    <span class="glyphicon">&#xe031;</span>
                 </button>
 
-        </div>
-    </div>
+                <select id="dropdown" class="selectpicker select_my" name="order_id" style="display: inline-block; margin-right: 10px; align: right; width: 300px">
+                </select>
 
-    <div class="cont_my">
-        <h4 style="text-align: center">Подробные сведения о заказе</h4>
-        <textarea id="manager_text" readonly
-                  style="height: 300px; width: 80%; margin-right: 10%; margin-left: 10%; font-size: 16px">
+                <button id="manager_find" name="singlebutton" class="btn btn-info" style="display: inline-block; width: 36px">
+                    <span class="glyphicon">&#xe003;</span>
+                </button>
+
+            </div>
+        </div>
+
+        <div class="cont_my">
+            <h4 style="text-align: center">Подробные сведения о заказе</h4>
+            <textarea id="manager_text" readonly style="height: 300px; width: 80%; margin-right: 10%; margin-left: 10%; font-size: 16px">
                 Some text will be here
             </textarea>
-    </div>
+        </div>
 
-    <div class="cont_my" style="text-align: center">
-        <div class="form-group" style="display: inline-block; padding-right: 10%">
-            <div class="d-flex justify-content-center">
-                <a href="" style="text-decoration: none; outline: none">
-                    <button id="accept_manager" name="singlebutton" class="btn btn-success"
-                            style="height: 50px; width: 100px; border-radius: 16px; font-size: 15px">
-                        Accept
-                    </button>
-                </a>
+        <div class="cont_my" style="text-align: center">
+            <div class="form-group" style="display: inline-block; padding-right: 10%">
+                <div class="d-flex justify-content-center">
+                    <a href="" style="text-decoration: none; outline: none">
+                        <button id="accept_manager" name="singlebutton" class="btn btn-success" style="height: 50px; width: 100px; border-radius: 16px; font-size: 15px">
+                            Accept
+                        </button>
+                    </a>
+                </div>
+            </div>
+
+            <div class="form-group" style="display: inline-block; padding-left: 10%">
+                <div class="d-flex justify-content-center">
+                    <a href="" style="text-decoration: none; outline: none">
+                        <button id="deny_manager" name="singlebutton" class="btn btn-danger" style="height: 50px; width: 100px; border-radius: 16px; font-size: 15px">
+                            Deny
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>
 
-        <div class="form-group" style="display: inline-block; padding-left: 10%">
-            <div class="d-flex justify-content-center">
-                <a href="" style="text-decoration: none; outline: none">
-                    <button id="deny_manager" name="singlebutton" class="btn btn-danger"
-                            style="height: 50px; width: 100px; border-radius: 16px; font-size: 15px">
-                        Deny
-                    </button>
-                </a>
-            </div>
+    </div>
+
+    <div class="align-right" style="position: absolute; bottom: 0; right: 0">
+        <div class="btn-group">
+            <a href="index.html" style="text-decoration: none; outline: none">
+                <button id="manager_export_xml" type="button" class="btn btn-warning" style="width: 10vw; border-top-left-radius: 8px">Экспорт в хтмл</button>
+            </a>
+            <a href="manager.html" style="text-decoration: none; outline: none">
+                <button type="button" class="btn btn-info" style="width: 10vw; border-top-left-radius: 8px">Манагер</button>
+            </a>
+            <a href="boss.html" style="text-decoration: none; outline: none">
+                <button type="button" class="btn btn-info" style="width: 10vw">Босс</button>
+            </a>
         </div>
     </div>
 
-</div>
-
-<div class="align-right" style="position: absolute; bottom: 0; right: 0">
-    <div class="btn-group">
-        <a href="manager.html" style="text-decoration: none; outline: none">
-            <button type="button" class="btn btn-info" style="width: 10vw; border-top-left-radius: 8px">Манагер</button>
-        </a>
-        <a href="boss.html" style="text-decoration: none; outline: none">
-            <button type="button" class="btn btn-info" style="width: 10vw">Босс</button>
+    <div class="align-right" style="position: absolute; top:0 ; right: 0">
+        <a href="index.html" style="text-decoration: none; outline: none">
+            <button type="button" class="btn btn-default">
+                <span class="glyphicon">&#xe079;</span>
+            </button>
         </a>
     </div>
-</div>
-
-<div class="align-right" style="position: absolute; top:0 ; right: 0">
-    <a href="index.html" style="text-decoration: none; outline: none">
-        <button type="button" class="btn btn-default">
-            <span class="glyphicon">&#xe079;</span>
-        </button>
-    </a>
-</div>
 </body>
+
 </html>

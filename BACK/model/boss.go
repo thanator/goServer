@@ -8,7 +8,7 @@ import (
 type BossWorker struct{}
 
 func (e *BossWorker) Accept(visitor Visitor) {
-	visitor.visitBoss(e)
+	visitor.visitBoss()
 }
 
 // start of region Методы босса

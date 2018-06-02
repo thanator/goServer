@@ -1,8 +1,11 @@
 package main
 
 import (
+	_ "bufio"
 	"fmt"
+	_ "io/ioutil"
 	"net/http"
+	_ "os"
 	"strconv"
 	"strings"
 
@@ -13,6 +16,7 @@ import (
 
 // вход в сервак - хэндлинг реквеста
 func main() {
+
 	http.HandleFunc("/", doSmth)
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
@@ -23,12 +27,22 @@ func main() {
 
 func doSmth(w http.ResponseWriter, r *http.Request) {
 
+	visitor := new(model.ExportXmlVisitor)
+	bossWorker := new(model.BossWorker)
+	managerWorker := new(model.ManagerWorker)
+
 	s := strings.Split(r.URL.Path, "&")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	temp := s[0]
 
 	switch temp {
+	case "/xmlForBoss":
+		bossWorker.Accept(visitor)
+		return
+	case "/xmlForManager":
+		managerWorker.Accept(visitor)
+		return
 	case "/making_order.html":
 		fmt.Printf("/ making order\n")
 	case "/manager.html":
