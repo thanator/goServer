@@ -213,7 +213,7 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/xmlForBoss",
             success: function (result) {
-                alert(result);
+              //  alert(result);
             }
         });
     });
@@ -225,7 +225,7 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/xmlForManager",
             success: function (result) {
-                alert(result);
+               // alert(result);
             }
         });
     });
@@ -243,7 +243,7 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/boss_decline" + "&" + id,
             success: function (result) {
-                alert(result);
+               // alert(result);
             }
         });
     });
@@ -256,7 +256,7 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/boss_accept" + "&" + id,
             success: function (result) {
-                alert(result);
+              //  alert(result);
             }
         });
     });
