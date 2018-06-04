@@ -22,7 +22,6 @@ func main() {
 	if err != nil {
 		fmt.Printf(err.Error())
 	}
-
 }
 
 func doSmth(w http.ResponseWriter, r *http.Request) {
@@ -38,22 +37,34 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 	temp := s[0]
 
 	switch temp {
+	// паттерн визитор для босса
+	// экспорт в хмл продуктов
 	case "/xmlForBoss":
 		bossWorker.Accept(visitor)
 		return
+		// паттерн визитор для манагера
+	// экспорт в хмл заказов
 	case "/xmlForManager":
 		managerWorker.Accept(visitor)
 		return
+		// заказ ордера
 	case "/making_order.html":
 		fmt.Printf("/ making order\n")
+		// форма манагера
 	case "/manager.html":
 		fmt.Printf("manager.html")
+		// тест работы сервака
 	case "/hi":
 		w.Write([]byte("OK"))
 		return
+		// сест работы бд
 	case "/tesbDB":
 		w.Write([]byte(db.ReadAllProducts()))
 		return
+
+		// region manager
+
+		// принятие заказа
 	case "/accept_manager":
 		i, err := strconv.Atoi(s[1])
 		if err != nil {
@@ -62,6 +73,7 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(model.AcceptOrder(i)))
 		}
 		return
+		// отклонение заказа
 	case "/deny_manager":
 		i, err := strconv.Atoi(s[1])
 		if err != nil {
@@ -70,6 +82,7 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(model.DeclineOrder(i)))
 		}
 		return
+		// поиск заказа
 	case "/manager_find":
 		i, err := strconv.Atoi(s[1])
 		if err != nil {
@@ -83,12 +96,30 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		return
+		// поиск ожидающего заказа
+	case "/manager_req":
+		tempMas := model.GetWaitingOrder()
+		if tempMas[0] != -1 {
+			w.Write([]byte(strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tempMas)), ","), "[]")))
+			return
+		} else {
+			w.Write([]byte("ERROR"))
+			return
+		}
+
+		// endregion manager
+
+		// region boss
+
+		// увидеть все архивы
 	case "/see_all_archive_boss":
 		w.Write([]byte(model.FindOrderAll()))
 		return
+		// увидеть весь склад
 	case "/see_all_stock_boss":
 		w.Write([]byte(model.FindProductAll()))
 		return
+		// все айдишники продуктов
 	case "/boss_find_all_products_id":
 		tempMas := model.FindAllProductIds()
 		if tempMas[0] != "" {
@@ -98,6 +129,7 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("ERROR"))
 			return
 		}
+		// все айдишники заказов
 	case "/boss_find_all_archive_id":
 		tempMas := model.FindAllOrderIds()
 		if tempMas[0] != -1 {
@@ -107,6 +139,7 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte("ERROR"))
 			return
 		}
+		// поиск продукта
 	case "/boss_find_prod":
 		i, err := strconv.Atoi(s[1])
 		if err != nil {
@@ -116,12 +149,12 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 			w.Write([]byte(tempStr))
 		}
 		return
+		// поиск заказа
 	case "/boss_find_order":
 		i, err := strconv.Atoi(s[1])
 		if err != nil {
 			w.Write([]byte(err.Error()))
 		} else {
-
 			tempStr, orderId, err := model.FindOrderById(i)
 			if err != nil {
 				w.Write([]byte(err.Error()))
@@ -132,7 +165,8 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 		return
-
+		// паттер State
+		// босс положительное решение
 	case "/boss_accept":
 		i, err := strconv.Atoi(s[1])
 		if err != nil {
@@ -148,9 +182,10 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 				order.SetState(new(model.StateNegative))
 			}
 		}
-
 		order.ManageOrderAccept(i)
 		return
+		// паттерн State
+		// босс отрицательное решение
 	case "/boss_decline":
 		i, err := strconv.Atoi(s[1])
 		if err != nil {
@@ -165,10 +200,9 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 				order.SetState(new(model.StateNegative))
 			}
 		}
-
 		order.ManageOrderDeny(i)
 		return
-
+		// босс удалить продукт
 	case "/boss_delete":
 		tempStr := strings.Split(s[1], "-")
 		i, err := strconv.Atoi(tempStr[0])
@@ -180,34 +214,20 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 		} else {
 			w.Write([]byte("nope"))
 		}
-
 		return
-	case "/manager_req":
-		tempMas := model.GetWaitingOrder()
-		if tempMas[0] != -1 {
-			w.Write([]byte(strings.Trim(strings.Join(strings.Fields(fmt.Sprint(tempMas)), ","), "[]")))
-			return
-		} else {
-			w.Write([]byte("ERROR"))
-			return
-		}
 	}
+
+	// endregion босс
 
 	fmt.Printf("not error\n")
 
+	// работа с формой
+
 	switch r.Method {
 	case "GET":
-		var str string //http://localhost:8080/FRONT/making_order.html
-		// if r.URL.Path == "/" {
-		// 	//r.Host = "127.0.0.1:8080"
-		// 	str = "./FRONT/index.html"
-		// } else {
-		// 	fmt.Printf("Getted\n")
-		// 	str = "./FRONT/" + r.URL.Path
-		// }
+		var str string
 		fmt.Printf(str)
 		http.Redirect(w, r, "http://127.0.0.1:8080/FRONT/index.html", 301)
-		//http.ServeFile(w, r, str)
 
 	case "POST":
 		fmt.Printf("posted\n")

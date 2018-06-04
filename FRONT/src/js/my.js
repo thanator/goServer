@@ -150,28 +150,28 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/boss_find_order" + "&" + id,
             success: function (result) {
-               
+
                 var status = result.split("_");
 
                 $("#text_area_boss").html(status[1]);
                 switch (status[0]) {
                     case "1": // waiting
-                    //document.getElementById('#good_butt').hidden = true;
-                    $('#good_butt').removeClass('hidden');
-                    $('#bad_butt').removeClass('hidden');
+                        //document.getElementById('#good_butt').hidden = true;
+                        $('#good_butt').removeClass('hidden');
+                        $('#bad_butt').removeClass('hidden');
                         break;
                     case "2": // accepted           
-                    $('#good_butt').addClass("hidden");
-                    $('#bad_butt').addClass("hidden");
+                        $('#good_butt').addClass("hidden");
+                        $('#bad_butt').addClass("hidden");
                         break;
                     case "3": // declined          
-                    $('#good_butt').removeClass('hidden');
-                    $('#bad_butt').addClass("hidden");
+                        $('#good_butt').removeClass('hidden');
+                        $('#bad_butt').addClass("hidden");
                         break;
                     default:
                         break;
                 }
-                
+
             }
         });
     });
@@ -199,7 +199,7 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/boss_delete" + "&" + id,
             success: function (result) {
-                alert(result);
+                //alert(result);
             }
         });
     });
@@ -213,7 +213,7 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/xmlForBoss",
             success: function (result) {
-              //  alert(result);
+                alert("Экспорт в 'datbos' произведён успешно!");
             }
         });
     });
@@ -225,7 +225,7 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/xmlForManager",
             success: function (result) {
-               // alert(result);
+                alert("Экспорт в 'datmanag' произведён успешно!");
             }
         });
     });
@@ -233,9 +233,9 @@ $(document).ready(function () {
     //enregion visitor pattern
 
 
-     // region state pattern
+    // region state pattern
 
-     $("#bad_butt").click(function () {
+    $("#bad_butt").click(function () {
         var id = $("#boss_dropdown_archive").find("option:selected").text();
         $.ajax({
             type: 'POST',
@@ -243,7 +243,7 @@ $(document).ready(function () {
             dataType: 'text',
             url: "http://localhost:3000/boss_decline" + "&" + id,
             success: function (result) {
-               // alert(result);
+                // alert(result);
             }
         });
     });
@@ -255,12 +255,12 @@ $(document).ready(function () {
             crossdomain: true,
             dataType: 'text',
             url: "http://localhost:3000/boss_accept" + "&" + id,
-            success: function (result) {
-              //  alert(result);
+                    success: function (result) {
+                //  alert(result);
             }
         });
     });
-
+    
     //enregion state pattern
-
+    
 });

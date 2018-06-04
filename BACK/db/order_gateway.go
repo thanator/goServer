@@ -46,7 +46,7 @@ func ReadOrder(orderId int) (string, int, error) {
 				return "", i, err
 			} else {
 				i = col8
-				returnString += "Заказ №" + col1 + ", тип: " + col2 + "," + consts.TYPE_OF_ORDER[col4] + ", статус: " + consts.ORDER_STATUS[col8] + "\n"
+				returnString += "Заказ №" + col1 + ", тип: " + col2 + "," + consts.TYPE_OF_ORDER[col4] + ", статус: " + consts.ORDER_STATUS[col8] + ", номер заказчика: " + col5 + "\n"
 			}
 		}
 		if len(returnString) > 0 {

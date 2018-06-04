@@ -19,8 +19,31 @@ func CreateCustomer(phone string) (int, error) {
 }
 
 func ReadCustomer(id int) (*sql.Rows, error) {
-
 	return nil, nil
+}
+
+func ReadCustomersPhoneById(id int) (string, error) {
+
+	str := "SELECT customer_phone FROM public.\"Customer\" WHERE id = " + strconv.Itoa(id)
+
+	rows, err := CreateConnection(str)
+	var col1 string
+	if err != nil {
+		return "", err
+	} else {
+		for rows.Next() {
+
+			err := rows.Scan(&col1)
+			if err != nil {
+				return "", err
+			}
+		}
+		if len(col1) > 0 {
+			return col1, nil
+		}
+		rows.Close()
+	}
+	return "", nil
 }
 
 func ReadCustomerByPhone(phone string) (int, error) {

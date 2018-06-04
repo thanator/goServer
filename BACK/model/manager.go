@@ -13,12 +13,23 @@ func (e *ManagerWorker) Accept(visitor Visitor) {
 
 // start of region Методы манагера
 
+func FindOrderDetailsById(orderId int) (string, int, error) {
+	str1, intin, err := db.ReadOrder(orderId)
+	if err != nil {
+		return "", -1, err
+	}
+
+	//	str2, err := ReadCustomersPhoneById()
+
+	return str1, intin, nil
+}
+
 func SelectById(id int) string {
-	someShit, _, err := db.ReadOrder(id)
+	str, _, err := db.ReadOrder(id)
 	if err != nil {
 		return err.Error()
 	} else {
-		return someShit
+		return str
 	}
 }
 
