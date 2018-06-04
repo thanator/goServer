@@ -105,6 +105,24 @@ func FindAllOrderIds() []int {
 	return masInt
 }
 
+func declineOrder(id int) string {
+	err := db.UpdateOrder(id, consts.ORDER_DECLINED)
+	if err != nil {
+		return err.Error()
+	} else {
+		return "Вы отклонили заказ!"
+	}
+}
+
+func acceptOrder(id int) string {
+	err := db.UpdateOrder(id, consts.ORDER_ACCEPTED)
+	if err != nil {
+		return err.Error()
+	} else {
+		return "Вы одобрили заказ!"
+	}
+}
+
 func SpisatProduct(id int) {
 	db.UpdateProduct(id)
 }

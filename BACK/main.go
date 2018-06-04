@@ -17,14 +17,14 @@ import (
 // вход в сервак - хэндлинг реквеста
 func main() {
 
-	http.HandleFunc("/", doSmth)
+	http.HandleFunc("/", DoSmth)
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
 		fmt.Printf(err.Error())
 	}
 }
 
-func doSmth(w http.ResponseWriter, r *http.Request) {
+func DoSmth(w http.ResponseWriter, r *http.Request) {
 
 	visitor := new(model.ExportXmlVisitor)
 	bossWorker := new(model.BossWorker)
@@ -42,7 +42,7 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 	case "/xmlForBoss":
 		bossWorker.Accept(visitor)
 		return
-		// паттерн визитор для манагера
+	// паттерн визитор для манагера
 	// экспорт в хмл заказов
 	case "/xmlForManager":
 		managerWorker.Accept(visitor)
@@ -159,7 +159,6 @@ func doSmth(w http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				w.Write([]byte(err.Error()))
 			} else {
-				// str := handle()...
 				str1 := strconv.Itoa(orderId) + "_" + tempStr
 				w.Write([]byte(str1))
 			}
