@@ -41,11 +41,13 @@ func DoSmth(w http.ResponseWriter, r *http.Request) {
 	// экспорт в хмл продуктов
 	case "/xmlForBoss":
 		bossWorker.Accept(visitor)
+		w.Write([]byte("OK"))
 		return
 	// паттерн визитор для манагера
 	// экспорт в хмл заказов
 	case "/xmlForManager":
 		managerWorker.Accept(visitor)
+		w.Write([]byte("OK"))
 		return
 		// заказ ордера
 	case "/making_order.html":

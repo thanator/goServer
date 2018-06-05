@@ -122,3 +122,33 @@ func ReadAllOrderIds() []int {
 		}
 	}
 }
+
+func ExportOrder() string {
+
+	var returnStr string
+
+	str := "select xmlelement(name Order, xmlattributes(o.id, cus.customer_phone), xmlelement(name Milk_type, prod.typemilk)) from \"Order\" as o inner join \"Customer\" as cus on o.customer_id = cus.id inner join \"Product\" as prod on o.product_id = prod.id where current_date - o.order_date < 30"
+
+	rows, err := CreateConnection(str)
+
+	if err != nil {
+		return err.Error()
+	} else {
+		for rows.Next() {
+			var tempStr string
+			err := rows.Scan(&tempStr)
+			if err != nil {
+				return err.Error()
+			} else {
+				returnStr = returnStr + tempStr + "\n"
+			}
+		}
+		rows.Close()
+		if len(returnStr) > 0 {
+			return returnStr
+		} else {
+			return ""
+		}
+	}
+
+}

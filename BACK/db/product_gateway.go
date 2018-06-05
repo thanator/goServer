@@ -146,3 +146,35 @@ func ReadAllProductsIds() []string {
 	}
 
 }
+
+func CreateXMLOtchet() string {
+
+	var returnStr string
+
+	str := "select xmlelement(name Product, xmlattributes(id, status)," +
+		"xmlelement(name Milk_type, xmlattributes(fatness), typemilk)) " +
+		"from \"Product\""
+
+	rows, err := CreateConnection(str)
+
+	if err != nil {
+		return err.Error()
+	} else {
+		for rows.Next() {
+			var tempStr string
+			err := rows.Scan(&tempStr)
+			if err != nil {
+				return err.Error()
+			} else {
+				returnStr = returnStr + tempStr + "\n"
+			}
+		}
+		rows.Close()
+		if len(returnStr) > 0 {
+			return returnStr
+		} else {
+			return ""
+		}
+	}
+
+}

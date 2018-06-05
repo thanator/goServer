@@ -3,7 +3,6 @@ package model
 import (
 	"fmt"
 	"io/ioutil"
-	"strings"
 
 	"../db"
 )
@@ -11,19 +10,18 @@ import (
 type ExportXmlVisitor struct{}
 
 func (v *ExportXmlVisitor) visitBoss() {
-	prd := db.ReadAllProducts()
+	prd := db.CreateXMLOtchet()
 	println(prd)
-	err := ioutil.WriteFile("datbos", []byte(prd), 0644)
+	err := ioutil.WriteFile("datbos.xml", []byte(prd), 0644)
 	if err != nil {
 		fmt.Printf(err.Error())
 	}
 }
 
 func (v *ExportXmlVisitor) visitManager() {
-	prd := db.ReadAllOrderIds()
-	str := strings.Trim(strings.Join(strings.Fields(fmt.Sprint(prd)), ","), "[]")
+	str := db.ExportOrder()
 	println(str)
-	err := ioutil.WriteFile("datmanag", []byte(str), 0644)
+	err := ioutil.WriteFile("datmanag.xml", []byte(str), 0644)
 	if err != nil {
 		fmt.Printf(err.Error())
 	}
